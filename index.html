@@ -1,0 +1,3279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계원예술대학교 미식지도</title>
+    <style>
+        /* 기본 리셋 및 폰트 설정 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background-color: #F2F4F7;
+            color: #111827;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            max-width: 375px;
+            margin: 0 auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 화면 전환용 기본 스타일 */
+        .screen {
+            display: none;
+            min-height: 100vh;
+            padding-bottom: 81px;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* 헤더 */
+        .header {
+            background-color: #F5F8F8;
+            border-bottom: 1px solid #F3F4F6;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 375px;
+            margin: 0 auto;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title {
+            font-size: 18px;
+            line-height: 28px;
+            font-weight: 400;
+            color: #111827;
+        }
+
+        .notification-btn {
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .notification-btn:hover {
+            background-color: #F3F4F6;
+        }
+
+        .notification-btn img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content {
+            padding: 24px 20px;
+            max-width: 375px;
+            margin: 0 auto;
+        }
+
+        /* 제목 섹션 */
+        .title-section {
+            margin-bottom: 24px;
+        }
+
+        .title-line {
+            font-size: 24px;
+            line-height: 32px;
+            font-weight: 400;
+            color: #000000;
+            margin: 0;
+        }
+
+        /* 카테고리 그리드 */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .category-btn {
+            background-color: #FF4500;
+            border: none;
+            border-radius: 16px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            transition: all 0.2s;
+        }
+
+        .category-btn:active {
+            transform: scale(0.98);
+        }
+
+        .category-text {
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        /* 랜덤 추천 섹션 */
+        .random-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .random-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .random-icon-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .random-title {
+            font-size: 18px;
+            line-height: 28px;
+            font-weight: 400;
+            color: #111827;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .random-subtitle {
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 400;
+            color: #4B5563;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .random-btn {
+            width: 100%;
+            height: 48px;
+            background-color: #FD4B21;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.2s;
+        }
+
+        .random-btn:hover {
+            background-color: #FF5939;
+        }
+
+        .random-btn:active {
+            transform: scale(0.98);
+        }
+
+        .random-btn-text {
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        /* 하단 네비게이션 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 375px;
+            background-color: #FFFFFF;
+            border-top: 1px solid #E5E7EB;
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 9px 0;
+            max-width: 375px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.2s;
+        }
+
+        .nav-item svg {
+            width: 23px;
+            height: 20px;
+        }
+
+        .nav-item.active {
+            color: #FC7951;
+        }
+
+        .nav-item:not(.active) {
+            color: #9CA3AF;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            line-height: 16px;
+            font-weight: 400;
+        }
+
+        /* 기록 화면 스타일 */
+        .back-btn {
+            background: transparent;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+        }
+
+        .back-btn svg {
+            width: 24px;
+            height: 24px;
+            color: #111827;
+        }
+
+        .meal-record-form {
+            background: #F2F4F7;
+            padding: 20px;
+            max-width: 375px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        .card-content {
+            background: #F2F4F7;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .form-label svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .required {
+            color: #FF6B4A;
+            font-size: 16px;
+        }
+
+        .optional {
+            color: #000000;
+            font-size: 14px;
+        }
+
+        .form-select {
+            width: 100%;
+            background: #CACED5;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .form-select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-select option {
+            background: #CACED5;
+            color: #000000;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #FFFFFF;
+            border: 1px solid #CACED5;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .form-input::placeholder {
+            color: #9CA3AF;
+        }
+
+        .submit-custom-btn,
+        .cancel-custom-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .submit-custom-btn {
+            background: #FD4B21;
+            color: #FFFFFF;
+        }
+
+        .submit-custom-btn:hover {
+            background: #FF5939;
+        }
+
+        .cancel-custom-btn {
+            background: #CACED5;
+            color: #FFFFFF;
+        }
+
+        .cancel-custom-btn:hover {
+            background: #9CA3AF;
+        }
+
+        .add-restaurant-btn,
+        .add-keyword-btn {
+            background: #CACED5;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #FFFFFF;
+            cursor: pointer;
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .form-description {
+            color: #9CA3AF;
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 12px;
+        }
+
+        .time-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .time-btn {
+            background: rgba(253, 75, 33, 0.3);
+            border: 1px solid rgba(255, 107, 74, 0.4);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .time-btn:hover {
+            background: rgba(253, 75, 33, 0.5);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .time-btn.active {
+            background: #FD4B21;
+            border: 2px solid #FF6B4A;
+            color: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(255, 107, 74, 0.4), 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+            font-weight: 600;
+        }
+
+        .mood-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .mood-btn {
+            background: rgba(253, 75, 33, 0.3);
+            border: 1px solid rgba(255, 107, 74, 0.4);
+            border-radius: 14px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mood-btn:hover {
+            background: rgba(253, 75, 33, 0.5);
+        }
+
+        .mood-btn.active {
+            background: #FD4B21;
+            border: 2px solid #FF6B4A;
+            box-shadow: 0 0 0 3px rgba(255, 107, 74, 0.4), 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .mood-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .mood-btn.active .mood-label {
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .mood-emoji {
+            font-size: 30px;
+            line-height: 36px;
+        }
+
+        .mood-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .rating-item {
+            margin-bottom: 16px;
+        }
+
+        .rating-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .rating-score {
+            color: #FF6B4A;
+            font-size: 14px;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 4px;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-size: 32px;
+            color: #FF6B4A;
+            transition: all 0.2s;
+            position: relative;
+            opacity: 0.3;
+        }
+
+        .star-btn::before {
+            content: '⭐';
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .star-btn.active {
+            color: #FF6B4A;
+            opacity: 1;
+        }
+
+        .star-btn.active::before {
+            opacity: 1;
+        }
+
+        .visual-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .visual-btn {
+            background: rgba(253, 75, 33, 0.3);
+            border: 1px solid rgba(255, 107, 74, 0.4);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .visual-btn:hover {
+            background: rgba(253, 75, 33, 0.5);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .visual-btn.active {
+            background: #FD4B21;
+            border: 2px solid #FF6B4A;
+            color: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(255, 107, 74, 0.4), 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+            font-weight: 600;
+        }
+
+        .keyword-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .keyword-badge {
+            background: transparent;
+            border: 2px solid #FD4B21;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #FD4B21;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .keyword-badge.active {
+            background: #E63900;
+            border: 2px solid #FF6B4A;
+            color: #FFFFFF;
+            box-shadow: 0 0 0 2px rgba(255, 107, 74, 0.3), 0 2px 4px rgba(0, 0, 0, 0.15);
+            transform: scale(1.05);
+            font-weight: 600;
+        }
+
+        .photo-upload {
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .photo-upload:hover {
+            border-color: #FD4B21;
+        }
+
+        .photo-upload svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .photo-upload span {
+            font-size: 14px;
+            color: #CACED5;
+        }
+
+        .info-card {
+            background: rgba(45, 45, 68, 0.5);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .info-card svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .info-card span {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #FD4B21;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 14px;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 16px;
+        }
+
+        .submit-btn:hover {
+            background: #FF5939;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* 지도 화면 스타일 */
+        .map-filter-container {
+            background: #FD4B21;
+            border-radius: 16px;
+            padding: 13px;
+            margin: 20px;
+            margin-top: 10px;
+            box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .map-filter-buttons {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .map-filter-buttons::-webkit-scrollbar {
+            display: none;
+        }
+
+        .map-filter-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 14px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-filter-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-filter-btn:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-emoji {
+            font-size: 20px;
+            line-height: 28px;
+        }
+
+        .filter-text {
+            color: #FFFFFF;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .map-filter-btn:not(.active) .filter-text {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .filter-badge {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 2px 8px;
+            font-size: 12px;
+            line-height: 16px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .map-filter-btn.active .filter-badge {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .map-view-container {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 200px);
+            min-height: 500px;
+            margin-top: 10px;
+        }
+
+        .map-background {
+            width: 100%;
+            height: 100%;
+            background: #F2F4F7;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .restaurant-card {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #FD4B21;
+            border-radius: 23px 23px 0 0;
+            padding: 25px 16px;
+            max-height: 70vh;
+            overflow-y: auto;
+            box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(calc(100% - 50px));
+            transition: transform 0.3s ease;
+        }
+
+        .restaurant-card.show {
+            transform: translateY(0);
+        }
+
+        .card-handle {
+            width: 48px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .card-header-left {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .restaurant-emoji {
+            font-size: 36px;
+            line-height: 40px;
+        }
+
+        .restaurant-info {
+            flex: 1;
+        }
+
+        .restaurant-name {
+            color: #FFFFFF;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 400;
+            margin: 0 0 4px 0;
+        }
+
+        .restaurant-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .distance-badge {
+            background: rgba(92, 72, 68, 0.2);
+            border-radius: 8px;
+            padding: 2px 8px;
+            font-size: 12px;
+            line-height: 16px;
+            color: #FFFFFF;
+        }
+
+        .rating-info {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .rating-info svg {
+            width: 12px;
+            height: 12px;
+            color: #FFFFFF;
+        }
+
+        .rating-score {
+            color: #FFFFFF;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .divider {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+        }
+
+        .review-count {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .close-card-btn {
+            background: rgba(255, 255, 255, 0.19);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .close-card-btn svg {
+            width: 16px;
+            height: 16px;
+            color: #FFFFFF;
+        }
+
+        .card-address,
+        .card-phone {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            line-height: 16px;
+            margin-bottom: 4px;
+        }
+
+        .card-reviews {
+            background: #F2F4F7;
+            border-radius: 14px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+
+        .reviews-header {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 8px;
+        }
+
+        .review-item {
+            background: #F2F4F7;
+            border-radius: 14px;
+            padding: 12px;
+        }
+
+        .review-header {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reviewer-name {
+            color: #000000;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .reviewer-dept {
+            background: #F5D8D5;
+            border-radius: 5px;
+            padding: 2px 6px;
+            color: #FF6B4A;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .review-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .review-stars span {
+            font-size: 12px;
+            color: #FF6B4A;
+        }
+
+        .review-menu-badge {
+            background: rgba(255, 107, 74, 0.2);
+            border-radius: 8px;
+            padding: 2px 8px;
+            display: inline-block;
+        }
+
+        .review-menu-badge span {
+            color: #FF6B4A;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .review-time {
+            color: rgba(0, 0, 0, 0.4);
+            font-size: 12px;
+            line-height: 16px;
+            margin-bottom: 8px;
+        }
+
+        .review-content {
+            color: rgba(0, 0, 0, 0.8);
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 12px;
+        }
+
+        .review-ratings {
+            background: #F3E6E5;
+            border-radius: 10px;
+            padding: 8px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .rating-item-small {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rating-item-small span:first-child {
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .rating-point {
+            color: #FF6B4A;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .review-keywords {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .keyword-badge-small {
+            background: rgba(255, 107, 74, 0.1);
+            border: 1px solid rgba(255, 107, 74, 0.3);
+            border-radius: 8px;
+            padding: 2px 8px;
+            color: #FF6B4A;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        /* 반응형 조정 */
+        @media (max-width: 375px) {
+            body {
+                max-width: 100%;
+            }
+            
+            .header-content,
+            .main-content,
+            .nav-content,
+            .meal-record-form,
+            .map-view-container {
+                max-width: 100%;
+            }
+
+            .map-filter-container {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            .restaurant-card {
+                padding: 20px 12px;
+            }
+        }
+
+        /* 트렌드 화면 스타일 */
+        .trend-content {
+            background: #F2F4F7;
+            padding: 20px;
+            padding-bottom: 100px;
+            max-width: 375px;
+            margin: 0 auto;
+        }
+
+        .trend-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #F2F4F7;
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-label {
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            color: #000000;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 400;
+        }
+
+        .stat-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #E5E7EB;
+            border-radius: 10px;
+            padding: 4px 8px;
+            width: fit-content;
+        }
+
+        .stat-rating svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .stat-rating span {
+            color: #000000;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .trend-card {
+            background: #F2F4F7;
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .trend-card-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .trend-card-title svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .trend-card-title span {
+            color: #000000;
+            font-size: 16px;
+            line-height: 16px;
+            font-weight: 400;
+        }
+
+        .tab-list {
+            background: #E5E7EB;
+            border-radius: 14px;
+            padding: 3px;
+            display: flex;
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            border-radius: 14px;
+            padding: 4px 8px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #000000;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: #FD4B21;
+            color: #FFFFFF;
+        }
+
+        .popular-restaurant-item {
+            background: #F3E6E5;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .rank-badge {
+            width: 29px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 400;
+            color: #FFFFFF;
+        }
+
+        .rank-badge.gold {
+            background: #FBBF24;
+        }
+
+        .rank-badge.silver {
+            background: #94A3B8;
+        }
+
+        .rank-badge.bronze {
+            background: #D97706;
+        }
+
+        .restaurant-emoji-small {
+            font-size: 24px;
+            line-height: 32px;
+        }
+
+        .restaurant-info-small {
+            flex: 1;
+        }
+
+        .restaurant-name-small {
+            color: #000000;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 4px;
+        }
+
+        .restaurant-count {
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .restaurant-rating-small {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .restaurant-rating-small svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .restaurant-rating-small span {
+            color: #FD4B21;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .ranking-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .ranking-item {
+            background: #F5DED2;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 17px;
+        }
+
+        .ranking-item.featured {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2) 0%, rgba(255, 107, 74, 0.2) 100%);
+            border-color: rgba(251, 191, 36, 0.5);
+        }
+
+        .ranking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .rank-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 700;
+            color: #FFFFFF;
+            box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .rank-number.gold {
+            background: #FBBF24;
+        }
+
+        .rank-number.silver {
+            background: #94A3B8;
+        }
+
+        .rank-number.bronze {
+            background: #D97706;
+        }
+
+        .rank-change {
+            background: rgba(74, 222, 128, 0.2);
+            border-radius: 50px;
+            padding: 2px 10px;
+            font-size: 12px;
+            line-height: 16px;
+            color: #4ADE80;
+        }
+
+        .rank-change.up {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ADE80;
+        }
+
+        .ranking-restaurant {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .restaurant-emoji-large {
+            font-size: 48px;
+            line-height: 48px;
+        }
+
+        .ranking-info {
+            flex: 1;
+        }
+
+        .ranking-name {
+            color: #000000;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 8px;
+        }
+
+        .ranking-distance {
+            background: rgba(255, 107, 74, 0.2);
+            border-radius: 8px;
+            padding: 2px 8px;
+            display: inline-block;
+            color: #FF6B4A;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .ranking-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .detail-item span:first-child {
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .detail-value {
+            color: #000000;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .detail-value.highlight {
+            color: #FD5D37;
+        }
+
+        .ranking-badge-special {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ranking-badge-special span:first-child {
+            font-size: 12px;
+            line-height: 16px;
+            color: #FBBF24;
+        }
+
+        .ranking-badge-special span:last-child {
+            font-size: 12px;
+            line-height: 16px;
+            color: #FD4B21;
+        }
+
+        .keyword-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .keyword-item {
+            background: rgba(255, 107, 74, 0.1);
+            border: 1px solid rgba(255, 107, 74, 0.3);
+            border-radius: 8px;
+            padding: 2px 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .keyword-text {
+            color: #FF6B4A;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .keyword-count {
+            color: #FF6B4A;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .recent-records {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .record-item {
+            background: #F3E6E5;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 17px;
+        }
+
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .record-left {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .record-emoji {
+            font-size: 24px;
+            line-height: 32px;
+        }
+
+        .record-info {
+            flex: 1;
+        }
+
+        .record-menu {
+            color: #891A00;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 8px;
+        }
+
+        .record-restaurant {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .record-restaurant svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        .record-restaurant span {
+            color: #FD4B21;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .record-stars {
+            display: flex;
+            gap: 4px;
+        }
+
+        .record-stars span {
+            font-size: 12px;
+            color: #FF6B4A;
+        }
+
+        .record-content {
+            color: #000000;
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 12px;
+        }
+
+        .record-keywords {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .record-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .record-author {
+            color: #9D9D9D;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .record-time {
+            color: #9D9D9D;
+            font-size: 12px;
+            line-height: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 홈 화면 -->
+    <section id="homeScreen" class="screen active">
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo-icon">
+                        <img src="https://i.imgur.com/dIGACdf.png" alt="미식지도 로고">
+                    </div>
+                    <h1 class="header-title">미식지도</h1>
+                </div>
+                <button class="notification-btn" aria-label="알림">
+                    <img src="https://i.imgur.com/sKOiF0X.png" alt="알림">
+                </button>
+            </div>
+        </header>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 제목 섹션 -->
+            <div class="title-section">
+                <h2 class="title-line">오늘은 무엇을</h2>
+                <h2 class="title-line">드셨나요?</h2>
+            </div>
+
+            <!-- 카테고리 버튼 그리드 -->
+            <div class="category-grid" id="categoryContainer">
+                <button class="category-btn" data-category="중식">
+                    <span class="category-text">중식</span>
+                </button>
+                <button class="category-btn" data-category="일식">
+                    <span class="category-text">일식</span>
+                </button>
+                <button class="category-btn" data-category="양식">
+                    <span class="category-text">양식</span>
+                </button>
+                <button class="category-btn" data-category="한식">
+                    <span class="category-text">한식</span>
+                </button>
+                <button class="category-btn" data-category="학식당">
+                    <span class="category-text">학식당</span>
+                </button>
+                <button class="category-btn" data-category="디저트">
+                    <span class="category-text">디저트</span>
+                </button>
+            </div>
+
+            <!-- 랜덤 추천 섹션 -->
+            <div class="random-section">
+                <div class="random-icon-wrapper">
+                    <img src="https://i.imgur.com/FUVs45k.png" alt="메뉴 고민">
+                </div>
+                <h3 class="random-title">메뉴 고민 중이신가요?</h3>
+                <p class="random-subtitle">랜덤으로 식당을 추천해드릴게요</p>
+                <button class="random-btn" id="randomRecommendBtn">
+                    <span class="random-btn-text">랜덤 추천 받기</span>
+                </button>
+            </div>
+        </main>
+
+        <!-- 하단 네비게이션 -->
+        <nav class="bottom-nav">
+            <div class="nav-content">
+                <button class="nav-item active" data-view="home">
+                    <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12L5 10M5 10L12 3L19 10M5 10V18C5 18.552 5.448 19 6 19H9M19 10L21 12M19 10V18C19 18.552 18.552 19 18 19H15M9 19C9.552 19 10 18.552 10 18V14C10 13.448 10.448 13 11 13H13C13.552 13 14 13.448 14 14V18C14 18.552 14.448 19 15 19M9 19H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">홈</span>
+                </button>
+                <button class="nav-item" data-view="map">
+                    <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 20L3.553 17.276C3.214 17.107 3 16.76 3 16.382V5.618C3 5.24 3.214 4.893 3.553 4.724L9 2M9 20L15 17M9 20V2M15 17L20.447 19.276C20.786 19.445 21 19.792 21 20.17V7.618C21 7.24 20.786 6.893 20.447 6.724L15 4M15 17V4M15 4L9 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">지도</span>
+                </button>
+                <button class="nav-item" data-view="trend">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 7H20M20 7V14M20 7L13 14L9 10L1 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">트렌드</span>
+                </button>
+            </div>
+        </nav>
+    </section>
+
+    <!-- 기록하기 화면 -->
+    <section id="recordScreen" class="screen">
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="back-btn" onclick="showScreen('home')" aria-label="뒤로가기">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="logo-icon">
+                        <img src="https://i.imgur.com/dIGACdf.png" alt="미식지도 로고">
+                    </div>
+                    <h1 class="header-title">계미지도</h1>
+                </div>
+                <button class="notification-btn" aria-label="알림">
+                    <img src="https://i.imgur.com/sKOiF0X.png" alt="알림">
+                </button>
+            </div>
+        </header>
+
+        <!-- 기록 폼 -->
+        <div class="meal-record-form">
+            <!-- 위치 선택 -->
+            <div class="card-content">
+                <div class="form-label">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>위치 선택</span>
+                    <span class="required">*</span>
+                </div>
+                <select id="restaurantSelect" class="form-select">
+                    <option value="">식당을 선택하세요</option>
+                </select>
+                <button class="add-restaurant-btn" id="addRestaurantBtn">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 3V13M3 8H13" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>이 플랫폼에 없는 식당 추가 요청</span>
+                </button>
+                <div id="customRestaurantInput" style="display: none; margin-top: 8px;">
+                    <input type="text" id="customRestaurantName" class="form-input" placeholder="식당 이름을 입력해주세요">
+                    <div style="display: flex; gap: 8px; margin-top: 8px;">
+                        <button class="submit-custom-btn" id="submitCustomRestaurant">추가하기</button>
+                        <button class="cancel-custom-btn" id="cancelCustomRestaurant">취소</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 메뉴 선택 -->
+            <div class="card-content">
+                <div class="form-label">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 3H5L5.4 5M7 13H10L14 8H5.4M7 13L5.4 5M7 13L4.707 15.293C4.077 15.923 5.293 17 6 17H17M17 17C17 18.105 16.105 19 15 19C13.895 19 13 18.105 13 17C13 15.895 13.895 15 15 15C16.105 15 17 15.895 17 17ZM9 19C9 20.105 8.105 21 7 21C5.895 21 5 20.105 5 19C5 17.895 5.895 17 7 17C8.105 17 9 17.895 9 19Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>메뉴</span>
+                    <span class="required">*</span>
+                </div>
+                <select id="menuSelect" class="form-select" disabled>
+                    <option value="">메뉴를 선택하세요</option>
+                </select>
+            </div>
+
+            <!-- 학과 선택 -->
+            <div class="card-content">
+                <div class="form-label">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 14l9-5-9-5-9 5 9 5z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>학과</span>
+                    <span class="required">*</span>
+                </div>
+                <select id="departmentSelect" class="form-select">
+                    <option value="">학과를 선택하세요</option>
+                </select>
+            </div>
+
+            <!-- 소요 시간 -->
+            <div class="card-content">
+                <div class="form-label">
+                    <span>소요 시간</span>
+                </div>
+                <p class="form-description">음식이 나오는 데 얼마나 걸렸나요?</p>
+                <div class="time-buttons">
+                    <button class="time-btn" data-time="5분 미만">5분 미만</button>
+                    <button class="time-btn" data-time="5분~15분">5분~15분</button>
+                    <button class="time-btn" data-time="15분~25분">15분~25분</button>
+                    <button class="time-btn" data-time="25분 이상">25분 이상</button>
+                </div>
+            </div>
+
+            <!-- 기분 표시 -->
+            <div class="card-content">
+                <div class="form-label">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>기분 표시</span>
+                    <span class="required">*</span>
+                </div>
+                <p class="form-description">음식을 먹고 난 후 나의 기분을 표시해주세요.</p>
+                <div class="mood-buttons">
+                    <button class="mood-btn" data-mood="행복">
+                        <div class="mood-emoji">😊</div>
+                        <div class="mood-label">행복</div>
+                    </button>
+                    <button class="mood-btn" data-mood="만족함">
+                        <div class="mood-emoji">😋</div>
+                        <div class="mood-label">만족함</div>
+                    </button>
+                    <button class="mood-btn" data-mood="보통">
+                        <div class="mood-emoji">😐</div>
+                        <div class="mood-label">보통</div>
+                    </button>
+                    <button class="mood-btn" data-mood="별로">
+                        <div class="mood-emoji">😔</div>
+                        <div class="mood-label">별로</div>
+                    </button>
+                    <button class="mood-btn" data-mood="나른함">
+                        <div class="mood-emoji">🤤</div>
+                        <div class="mood-label">나른함</div>
+                    </button>
+                    <button class="mood-btn" data-mood="화남">
+                        <div class="mood-emoji">😤</div>
+                        <div class="mood-label">화남</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 상세 평가 -->
+            <div class="card-content">
+                <div class="form-label">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>상세 평가</span>
+                    <span class="required">*</span>
+                </div>
+                <div id="ratingContainer"></div>
+            </div>
+
+            <!-- 시각 평가 -->
+            <div class="card-content">
+                <div class="form-label">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 4H16V16H4V4Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 8H12M8 12H12" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>시각 평가</span>
+                </div>
+                <p class="form-description">음식의 맛을 시각적인 느낌으로 선택해주세요.</p>
+                <div class="visual-buttons">
+                    <button class="visual-btn">부드러운</button>
+                    <button class="visual-btn">시원한</button>
+                    <button class="visual-btn">전통적인</button>
+                    <button class="visual-btn">발랄한</button>
+                    <button class="visual-btn">화려한</button>
+                    <button class="visual-btn">소박한</button>
+                    <button class="visual-btn">세련된</button>
+                    <button class="visual-btn">투박한</button>
+                </div>
+            </div>
+
+            <!-- 학생 한 줄 팁 -->
+            <div class="card-content">
+                <div class="form-label">
+                    <span>학생 한 줄 팁</span>
+                </div>
+                <p class="form-description">해당하는 키워드를 모두 선택해주세요</p>
+                <button class="add-keyword-btn">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 3V13M3 8H13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>기타 키워드 추가</span>
+                </button>
+                <div class="keyword-badges" id="keywordContainer"></div>
+            </div>
+
+            <!-- 식사 사진 -->
+            <div class="card-content">
+                <div class="form-label">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 4H16V16H4V4Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 8C8.552 8 9 7.552 9 7C9 6.448 8.552 6 8 6C7.448 6 7 6.448 7 7C7 7.552 7.448 8 8 8Z" fill="#FF6B4A"/>
+                        <path d="M4 12L7 9L10 12L13 9L16 12V16H4V12Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>식사 사진</span>
+                    <span class="optional">(선택)</span>
+                </div>
+                <div class="photo-upload">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 12V20M12 16H20" stroke="#CACED5" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>사진 업로드</span>
+                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                </div>
+            </div>
+
+            <!-- 시간 안내 -->
+            <div class="info-card">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 14C11.314 14 14 11.314 14 8C14 4.686 11.314 2 8 2C4.686 2 2 4.686 2 8C2 11.314 4.686 14 8 14Z" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 6V8M8 10H8.01" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>현재 시간이 자동으로 기록됩니다</span>
+            </div>
+
+            <!-- 기록 완료 버튼 -->
+            <button class="submit-btn" id="submitBtn">
+                <span>기록 완료</span>
+            </button>
+        </div>
+
+        <!-- 하단 네비게이션 -->
+        <nav class="bottom-nav">
+            <div class="nav-content">
+                <button class="nav-item" data-view="home" onclick="showScreen('home')">
+                    <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12L5 10M5 10L12 3L19 10M5 10V18C5 18.552 5.448 19 6 19H9M19 10L21 12M19 10V18C19 18.552 18.552 19 18 19H15M9 19C9.552 19 10 18.552 10 18V14C10 13.448 10.448 13 11 13H13C13.552 13 14 13.448 14 14V18C14 18.552 14.448 19 15 19M9 19H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">홈</span>
+                </button>
+                <button class="nav-item" data-view="map">
+                    <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 20L3.553 17.276C3.214 17.107 3 16.76 3 16.382V5.618C3 5.24 3.214 4.893 3.553 4.724L9 2M9 20L15 17M9 20V2M15 17L20.447 19.276C20.786 19.445 21 19.792 21 20.17V7.618C21 7.24 20.786 6.893 20.447 6.724L15 4M15 17V4M15 4L9 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">지도</span>
+                </button>
+                <button class="nav-item" data-view="trend">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 7H20M20 7V14M20 7L13 14L9 10L1 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">트렌드</span>
+                </button>
+            </div>
+        </nav>
+    </section>
+
+    <!-- 지도 화면 -->
+    <section id="mapScreen" class="screen">
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo-icon">
+                        <img src="https://i.imgur.com/dIGACdf.png" alt="미식지도 로고">
+                    </div>
+                    <h1 class="header-title">미식지도</h1>
+                </div>
+                <button class="notification-btn" aria-label="알림">
+                    <img src="https://i.imgur.com/sKOiF0X.png" alt="알림">
+                </button>
+            </div>
+        </header>
+
+        <!-- 카테고리 필터 -->
+        <div class="map-filter-container">
+            <div class="map-filter-buttons">
+                <button class="map-filter-btn active" data-filter="전체">
+                    <span class="filter-emoji">🍽️</span>
+                    <span class="filter-text">전체</span>
+                    <span class="filter-badge">6</span>
+                </button>
+                <button class="map-filter-btn" data-filter="중식">
+                    <span class="filter-emoji">🥟</span>
+                    <span class="filter-text">중식</span>
+                    <span class="filter-badge">6</span>
+                </button>
+                <button class="map-filter-btn" data-filter="한식">
+                    <span class="filter-emoji">🍚</span>
+                    <span class="filter-text">한식</span>
+                    <span class="filter-badge">0</span>
+                </button>
+                <button class="map-filter-btn" data-filter="일식">
+                    <span class="filter-emoji">🍣</span>
+                    <span class="filter-text">일식</span>
+                    <span class="filter-badge">0</span>
+                </button>
+                <button class="map-filter-btn" data-filter="양식">
+                    <span class="filter-emoji">🍝</span>
+                    <span class="filter-text">양식</span>
+                    <span class="filter-badge">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 지도 뷰 -->
+        <div class="map-view-container">
+            <!-- 지도 배경 이미지 영역 -->
+            <div class="map-background" id="mapBackground">
+                <!-- 마커들이 여기에 동적으로 추가됩니다 -->
+            </div>
+
+            <!-- 식당 상세 카드 -->
+            <div class="restaurant-card" id="restaurantCard">
+                <div class="card-handle"></div>
+                <div class="card-header">
+                    <div class="card-header-left">
+                        <div class="restaurant-emoji">🐉</div>
+                        <div class="restaurant-info">
+                            <h3 class="restaurant-name">용궁각</h3>
+                            <div class="restaurant-meta">
+                                <span class="distance-badge">도보 30분</span>
+                                <div class="rating-info">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 1L7.5 4.5L11 5L8.5 7.5L9 11L6 9L3 11L3.5 7.5L1 5L4.5 4.5L6 1Z" fill="currentColor"/>
+                                    </svg>
+                                    <span class="rating-score">4.5</span>
+                                </div>
+                                <span class="divider">·</span>
+                                <span class="review-count">98개 리뷰</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="close-card-btn" id="closeCardBtn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="card-address">
+                    <span>📍 경기도 의왕시 계원대학로 567</span>
+                </div>
+                <div class="card-phone">
+                    <span>📞 031-567-8901</span>
+                </div>
+                <div class="card-reviews">
+                    <div class="reviews-header">
+                        <span>리뷰 1개</span>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <span class="reviewer-name">익명</span>
+                                <span class="divider">·</span>
+                                <span class="reviewer-dept">애니메이션학과</span>
+                            </div>
+                            <div class="review-stars">
+                                <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+                            </div>
+                            <div class="review-menu-badge">
+                                <span>해물누룽지탕</span>
+                            </div>
+                        </div>
+                        <div class="review-time">2시간 전</div>
+                        <div class="review-content">누룽지 바삭하고 해물 신선해요</div>
+                        <div class="review-ratings">
+                            <div class="rating-item-small">
+                                <span>🍜 맛</span>
+                                <span class="rating-point">5점</span>
+                            </div>
+                            <div class="rating-item-small">
+                                <span>🍽️ 양</span>
+                                <span class="rating-point">4점</span>
+                            </div>
+                            <div class="rating-item-small">
+                                <span>💰 가성비</span>
+                                <span class="rating-point">4점</span>
+                            </div>
+                            <div class="rating-item-small">
+                                <span>😊 서비스</span>
+                                <span class="rating-point">5점</span>
+                            </div>
+                        </div>
+                        <div class="review-keywords">
+                            <span class="keyword-badge-small">분위기 좋음</span>
+                            <span class="keyword-badge-small">단골될 듯</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 네비게이션 -->
+        <nav class="bottom-nav">
+            <div class="nav-content">
+                <button class="nav-item" data-view="home" onclick="showScreen('home')">
+                    <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12L5 10M5 10L12 3L19 10M5 10V18C5 18.552 5.448 19 6 19H9M19 10L21 12M19 10V18C19 18.552 18.552 19 18 19H15M9 19C9.552 19 10 18.552 10 18V14C10 13.448 10.448 13 11 13H13C13.552 13 14 13.448 14 14V18C14 18.552 14.448 19 15 19M9 19H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">홈</span>
+                </button>
+                <button class="nav-item active" data-view="map" onclick="showScreen('map')">
+                    <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 20L3.553 17.276C3.214 17.107 3 16.76 3 16.382V5.618C3 5.24 3.214 4.893 3.553 4.724L9 2M9 20L15 17M9 20V2M15 17L20.447 19.276C20.786 19.445 21 19.792 21 20.17V7.618C21 7.24 20.786 6.893 20.447 6.724L15 4M15 17V4M15 4L9 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">지도</span>
+                </button>
+                <button class="nav-item" data-view="trend">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 7H20M20 7V14M20 7L13 14L9 10L1 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">트렌드</span>
+                </button>
+            </div>
+        </nav>
+    </section>
+
+    <!-- 트렌드 화면 -->
+    <section id="trendScreen" class="screen">
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo-icon">
+                        <img src="https://i.imgur.com/dIGACdf.png" alt="미식지도 로고">
+                    </div>
+                    <h1 class="header-title">미식지도</h1>
+                </div>
+                <button class="notification-btn" aria-label="알림">
+                    <img src="https://i.imgur.com/sKOiF0X.png" alt="알림">
+                </button>
+            </div>
+        </header>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="trend-content">
+            <!-- 통계 카드 -->
+            <div class="trend-stats">
+                <div class="stat-card">
+                    <div class="stat-label">오늘 기록</div>
+                    <div class="stat-value">156건</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">평균 평점</div>
+                    <div class="stat-rating">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 1L10 6L16 6L11 9L13 14L8 11L3 14L5 9L0 6L6 6L8 1Z" fill="#FF6B4A"/>
+                        </svg>
+                        <span>4.2</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 오늘의 인기 식당 -->
+            <div class="trend-card">
+                <div class="trend-card-title">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 1L12 7L18 7L13 11L15 17L10 13L5 17L7 11L2 7L8 7L10 1Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>오늘의 인기 식당</span>
+                </div>
+                <div class="trend-tabs">
+                    <div class="tab-list">
+                        <button class="tab-btn active" data-period="today">오늘</button>
+                        <button class="tab-btn" data-period="week">이번 주</button>
+                        <button class="tab-btn" data-period="month">이번 달</button>
+                    </div>
+                    <div class="tab-content">
+                        <div class="popular-restaurant-item">
+                            <div class="rank-badge gold">1</div>
+                            <div class="restaurant-emoji-small">🏮</div>
+                            <div class="restaurant-info-small">
+                                <div class="restaurant-name-small">홍콩반점</div>
+                                <div class="restaurant-count">23건</div>
+                            </div>
+                            <div class="restaurant-rating-small">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 1L10 6L16 6L11 9L13 14L8 11L3 14L5 9L0 6L6 6L8 1Z" fill="#FF6B4A"/>
+                                </svg>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <div class="popular-restaurant-item">
+                            <div class="rank-badge silver">2</div>
+                            <div class="restaurant-emoji-small">🌶️</div>
+                            <div class="restaurant-info-small">
+                                <div class="restaurant-name-small">차이나팩토리</div>
+                                <div class="restaurant-count">18건</div>
+                            </div>
+                            <div class="restaurant-rating-small">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 1L10 6L16 6L11 9L13 14L8 11L3 14L5 9L0 6L6 6L8 1Z" fill="#FF6B4A"/>
+                                </svg>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                        <div class="popular-restaurant-item">
+                            <div class="rank-badge bronze">3</div>
+                            <div class="restaurant-emoji-small">🔥</div>
+                            <div class="restaurant-info-small">
+                                <div class="restaurant-name-small">진미짬뽕</div>
+                                <div class="restaurant-count">15건</div>
+                            </div>
+                            <div class="restaurant-rating-small">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 1L10 6L16 6L11 9L13 14L8 11L3 14L5 9L0 6L6 6L8 1Z" fill="#FF6B4A"/>
+                                </svg>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 이달의 식당 랭킹 -->
+            <div class="trend-card">
+                <div class="trend-card-title">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 1L12 7L18 7L13 11L15 17L10 13L5 17L7 11L2 7L8 7L10 1Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>이달의 식당 랭킹</span>
+                </div>
+                <div class="ranking-list">
+                    <div class="ranking-item featured">
+                        <div class="ranking-header">
+                            <div class="rank-number gold">1</div>
+                            <div class="rank-change up">↗ 12%</div>
+                        </div>
+                        <div class="ranking-restaurant">
+                            <div class="restaurant-emoji-large">🏮</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">홍콩반점</div>
+                                <div class="ranking-distance">도보 10분</div>
+                            </div>
+                        </div>
+                        <div class="ranking-details">
+                            <div class="detail-item">
+                                <span>평점</span>
+                                <span class="detail-value">4.7</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>리뷰 수</span>
+                                <span class="detail-value">342개</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>베스트 메뉴</span>
+                                <span class="detail-value highlight">🏆 짜장면</span>
+                            </div>
+                        </div>
+                        <div class="ranking-badge-special">
+                            <span>🎉</span>
+                            <span>이달의 최고 인기 식당!</span>
+                        </div>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="ranking-header">
+                            <div class="rank-number silver">2</div>
+                            <div class="rank-change up">↗ 8%</div>
+                        </div>
+                        <div class="ranking-restaurant">
+                            <div class="restaurant-emoji-large">🌶️</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">차이나팩토리</div>
+                                <div class="ranking-distance">도보 15분</div>
+                            </div>
+                        </div>
+                        <div class="ranking-details">
+                            <div class="detail-item">
+                                <span>평점</span>
+                                <span class="detail-value">4.6</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>리뷰 수</span>
+                                <span class="detail-value">298개</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>베스트 메뉴</span>
+                                <span class="detail-value highlight">🏆 마라탕</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="ranking-header">
+                            <div class="rank-number bronze">3</div>
+                            <div class="rank-change">→ 0%</div>
+                        </div>
+                        <div class="ranking-restaurant">
+                            <div class="restaurant-emoji-large">🔥</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">진미짬뽕</div>
+                                <div class="ranking-distance">도보 20분</div>
+                            </div>
+                        </div>
+                        <div class="ranking-details">
+                            <div class="detail-item">
+                                <span>평점</span>
+                                <span class="detail-value">4.6</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>리뷰 수</span>
+                                <span class="detail-value">267개</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>베스트 메뉴</span>
+                                <span class="detail-value highlight">🏆 해물짬뽕</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 인기 키워드 -->
+            <div class="trend-card">
+                <div class="trend-card-title">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 1L12 7L18 7L13 11L15 17L10 13L5 17L7 11L2 7L8 7L10 1Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>인기 키워드</span>
+                </div>
+                <div class="keyword-list">
+                    <div class="keyword-item">
+                        <span class="keyword-text">가성비 좋음</span>
+                        <span class="keyword-count">(156)</span>
+                    </div>
+                    <div class="keyword-item">
+                        <span class="keyword-text">양 많음</span>
+                        <span class="keyword-count">(143)</span>
+                    </div>
+                    <div class="keyword-item">
+                        <span class="keyword-text">빨리 나옴</span>
+                        <span class="keyword-count">(128)</span>
+                    </div>
+                    <div class="keyword-item">
+                        <span class="keyword-text">혼밥 가능</span>
+                        <span class="keyword-count">(112)</span>
+                    </div>
+                    <div class="keyword-item">
+                        <span class="keyword-text">단골될 듯</span>
+                        <span class="keyword-count">(98)</span>
+                    </div>
+                    <div class="keyword-item">
+                        <span class="keyword-text">매움</span>
+                        <span class="keyword-count">(87)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 최근 식사 기록 -->
+            <div class="trend-card">
+                <div class="trend-card-title">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 1L12 7L18 7L13 11L15 17L10 13L5 17L7 11L2 7L8 7L10 1Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>최근 식사 기록</span>
+                </div>
+                <div class="recent-records">
+                    <div class="record-item">
+                        <div class="record-header">
+                            <div class="record-left">
+                                <div class="record-emoji">😋</div>
+                                <div class="record-info">
+                                    <div class="record-menu">짜장면</div>
+                                    <div class="record-restaurant">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6 1L7 6L12 6L8 9L9 14L6 11L3 14L4 9L0 6L5 6L6 1Z" fill="#FD4B21"/>
+                                        </svg>
+                                        <span>홍콩반점 (도보 10분)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="record-stars">
+                                <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+                            </div>
+                        </div>
+                        <div class="record-content">면발이 쫄깃하고 짜장 소스가 진해요! 양파도 아삭아삭</div>
+                        <div class="record-keywords">
+                            <span class="keyword-badge-small">양 많음</span>
+                            <span class="keyword-badge-small">가성비 좋음</span>
+                            <span class="keyword-badge-small">단골될 듯</span>
+                        </div>
+                        <div class="record-footer">
+                            <span class="record-author">익명 · 디자인학과</span>
+                            <span class="record-time">5분 전</span>
+                        </div>
+                    </div>
+                    <div class="record-item">
+                        <div class="record-header">
+                            <div class="record-left">
+                                <div class="record-emoji">🤤</div>
+                                <div class="record-info">
+                                    <div class="record-menu">마라탕</div>
+                                    <div class="record-restaurant">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6 1L7 6L12 6L8 9L9 14L6 11L3 14L4 9L0 6L5 6L6 1Z" fill="#FD4B21"/>
+                                        </svg>
+                                        <span>차이나팩토리 (도보 15분)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="record-stars">
+                                <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+                            </div>
+                        </div>
+                        <div class="record-content">매운맛 조절 가능하고 건더기 푸짐해요</div>
+                        <div class="record-keywords">
+                            <span class="keyword-badge-small">매움</span>
+                            <span class="keyword-badge-small">빨리 나옴</span>
+                            <span class="keyword-badge-small">재방문 의사 있음</span>
+                        </div>
+                        <div class="record-footer">
+                            <span class="record-author">익명 · 영상학과</span>
+                            <span class="record-time">15분 전</span>
+                        </div>
+                    </div>
+                    <div class="record-item">
+                        <div class="record-header">
+                            <div class="record-left">
+                                <div class="record-emoji">😊</div>
+                                <div class="record-info">
+                                    <div class="record-menu">해물짬뽕</div>
+                                    <div class="record-restaurant">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6 1L7 6L12 6L8 9L9 14L6 11L3 14L4 9L0 6L5 6L6 1Z" fill="#FD4B21"/>
+                                        </svg>
+                                        <span>진미짬뽕 (도보 20분)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="record-stars">
+                                <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+                            </div>
+                        </div>
+                        <div class="record-content">국물이 진짜 시원하고 해물 양도 많아요!</div>
+                        <div class="record-keywords">
+                            <span class="keyword-badge-small">빨리 나옴</span>
+                            <span class="keyword-badge-small">혼밥 가능</span>
+                            <span class="keyword-badge-small">조용함</span>
+                        </div>
+                        <div class="record-footer">
+                            <span class="record-author">익명 · 회화과</span>
+                            <span class="record-time">32분 전</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 하단 네비게이션 -->
+        <nav class="bottom-nav">
+            <div class="nav-content">
+                <button class="nav-item" data-view="home" onclick="showScreen('home')">
+                    <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12L5 10M5 10L12 3L19 10M5 10V18C5 18.552 5.448 19 6 19H9M19 10L21 12M19 10V18C19 18.552 18.552 19 18 19H15M9 19C9.552 19 10 18.552 10 18V14C10 13.448 10.448 13 11 13H13C13.552 13 14 13.448 14 14V18C14 18.552 14.448 19 15 19M9 19H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">홈</span>
+                </button>
+                <button class="nav-item" data-view="map" onclick="showScreen('map')">
+                    <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 20L3.553 17.276C3.214 17.107 3 16.76 3 16.382V5.618C3 5.24 3.214 4.893 3.553 4.724L9 2M9 20L15 17M9 20V2M15 17L20.447 19.276C20.786 19.445 21 19.792 21 20.17V7.618C21 7.24 20.786 6.893 20.447 6.724L15 4M15 17V4M15 4L9 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">지도</span>
+                </button>
+                <button class="nav-item active" data-view="trend" onclick="showScreen('trend')">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 7H20M20 7V14M20 7L13 14L9 10L1 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="nav-label">트렌드</span>
+                </button>
+            </div>
+        </nav>
+    </section>
+
+    <script>
+        // 데이터 정의
+        const restaurants = {
+            '중식': [
+                { name: '홍콩반점', distance: '도보 10분', menus: ['짜장면', '짬뽕', '탕수육', '깐풍기', '볶음밥', '우동', '군만두'] },
+                { name: '차이나팩토리', distance: '도보 15분', menus: ['마라탕', '마라샹궈', '양꼬치', '꿔바로우', '유산슬', '깐쇼새우', '칠리새우'] },
+                { name: '진미짬뽕', distance: '도보 20분', menus: ['짬뽕', '짜장면', '삼선짬뽕', '해물짬뽕', '볶음짬뽕', '쟁반짜장', '탕수육'] },
+                { name: '왕가네중화요리', distance: '도보 25분', menus: ['짜장면', '짬뽕', '간짜장', '삼선짜장', '유니짜장', '탕수육', '라조기', '팔보채'] },
+                { name: '용궁각', distance: '도보 30분', menus: ['짬뽕', '해물짬뽕', '짜장면', '울면', '유산슬', '해물누룽지탕', '깐풍기'] },
+                { name: '황제반점', distance: '도보 30분', menus: ['짜장면', '짬뽕', '유니짜장', '삼선간짜장', '탕수육', '깐쇼새우', '양장피', '팔보채'] }
+            ],
+            '일식': [
+                { name: '스시마루', distance: '도보 10분', menus: ['연어초밥', '광어초밥', '모듬초밥 (8pcs)', '모듬초밥 (12pcs)', '회덮밥', '연어덮밥', '우동세트', '직접 입력...'] },
+                { name: '텐동맛집', distance: '도보 12분', menus: ['새우텐동', '모듬텐동', '치킨텐동', '연어텐동', '미니텐동 (가성비)', '텐동정식 (미소시루+샐러드)', '직접 입력...'] },
+                { name: '우동야', distance: '도보 15분', menus: ['김치우동', '가츠오우동', '냉우동', '온우동', '카레우동', '야채우동', '튀김우동', '직접 입력...'] },
+                { name: '라멘길', distance: '도보 18분', menus: ['돈코츠라멘', '미소라멘', '쇼유라멘', '매운라멘 (신라멘)', '차슈라멘', '츠케멘 (쯔루멘)', '교자 (사이드)', '직접 입력...'] },
+                { name: '돈카츠하우스', distance: '도보 20분', menus: ['등심돈카츠', '안심돈카츠', '치즈돈카츠', '로스카츠', '생선까스', '치킨카츠', '카츠동', '직접 입력...'] },
+                { name: '이자카야 혼', distance: '도보 25분', menus: ['꼬치구이 세트', '타코야키', '오코노미야키', '야키소바', '연어구이', '모듬사시미', '에다마메 (사이드)', '직접 입력...'] }
+            ],
+            '양식': [
+                { name: '파스타하우스', distance: '도보 8분', menus: ['크림파스타', '토마토파스타', '까르보나라', '알리오올리오', '로제파스타', '봉골레파스타', '오일파스타', '직접 입력...'] },
+                { name: '더 브런치', distance: '도보 10분', menus: ['에그베네딕트', '팬케이크', '프렌치토스트', '크로와상 샌드위치', '아보카도 토스트', '와플', '브런치 세트', '직접 입력...'] },
+                { name: '피자팩토리', distance: '도보 14분', menus: ['페페로니 피자', '치즈 피자', '콤비네이션 피자', '하와이안 피자', '고르곤졸라 피자', '불고기 피자', '반반 피자', '직접 입력...'] },
+                { name: '스테이크 101', distance: '도보 18분', menus: ['립아이 스테이크', '안심 스테이크', '등심 스테이크', '티본 스테이크', '치킨 스테이크', '연어 스테이크', '스테이크 정식', '직접 입력...'] },
+                { name: '샐러드바 그린', distance: '도보 20분', menus: ['시저 샐러드', '그릭 샐러드', '연어 샐러드', '치킨 샐러드', '퀴노아 샐러드', '커스텀 샐러드', '샐러드 세트 (수프+빵)', '직접 입력...'] },
+                { name: '이탈리안 키친', distance: '도보 25분', menus: ['리조또', '라자냐', '피자+파스타 세트', '해산물 파스타', '트러플 파스타', '안티파스토 (전채)', '티라미수 (디저트)', '직접 입력...'] }
+            ],
+            '한식': [
+                { name: '김밥천국', distance: '도보 5분', menus: ['김밥', '참치김밥', '치즈김밥', '제육볶음', '김치찌개', '된장찌개', '라면', '돈까스', '직접 입력...'] },
+                { name: '백반집 엄마손', distance: '도보 8분', menus: ['제육볶음 백반', '고등어구이 백반', '김치찌개 백반', '된장찌개 백반', '순두부찌개 백반', '불고기 백반', '삼겹살 백반', '직접 입력...'] },
+                { name: '순두부찌개 전문점', distance: '도보 12분', menus: ['해물순두부', '김치순두부', '버섯순두부', '굴순두부', '쇠고기순두부', '콤비순두부 (해물+김치)', '순두부정식', '직접 입력...'] },
+                { name: '불고기 명가', distance: '도보 15분', menus: ['불고기 (1인분)', '불고기 (2인분)', '돼지불고기', '제육볶음', '불고기덮밥', '불고기정식', '냉면 (사이드)', '직접 입력...'] },
+                { name: '칼국수마을', distance: '도보 18분', menus: ['바지락칼국수', '해물칼국수', '들깨칼국수', '김치칼국수', '만두', '칼만두 (칼국수+만두)', '비빔국수', '직접 입력...'] },
+                { name: '한정식 산들애', distance: '도보 22분', menus: ['한정식 A (7찬)', '한정식 B (9찬)', '한정식 C (12찬)', '갈비찜 정식', '생선구이 정식', '불고기 정식', '비빔밥 정식', '직접 입력...'] }
+            ],
+            '학식당': [
+                { name: '학식당', distance: '계원예술대학교', menus: ['부대찌게', '갈비탕', '돈까스', '떡볶이', '떡라면', '치킨마요덮밥', '로제라볶이'] }
+            ],
+            '디저트': [
+                { name: '카페 모먼트', distance: '도보 5분', menus: ['아메리카노', '카페라떼', '바닐라라떼', '아인슈페너', '딸기라떼', '초코라떼', '케이크 세트', '직접 입력...'] },
+                { name: '디저트39', distance: '도보 8분', menus: ['티라미수', '치즈케이크', '초콜릿케이크', '레드벨벳케이크', '당근케이크', '마카롱 (5개 세트)', '디저트 플레이트', '직접 입력...'] },
+                { name: '베이커리 달콤', distance: '도보 10분', menus: ['크루아상', '소금빵', '바게트', '단팥빵', '크림빵', '식빵', '샌드위치', '직접 입력...'] },
+                { name: '아이스크림 팩토리', distance: '도보 12분', menus: ['바닐라 아이스크림', '초콜릿 아이스크림', '딸기 아이스크림', '말차 아이스크림', '민트초코', '아이스크림 샌드', '젤라또', '직접 입력...'] },
+                { name: '와플하우스', distance: '도보 15분', menus: ['플레인 와플', '초콜릿 와플', '딸기 와플', '아이스크림 와플', '크림치즈 와플', '누텔라 와플', '와플 세트', '직접 입력...'] },
+                { name: '디저트 아틀리에', distance: '도보 20분', menus: ['시그니처 케이크', '마들렌', '휘낭시에', '타르트', '에클레어', '푸딩', '수제 쿠키', '직접 입력...'] }
+            ]
+        };
+
+        const departments = [
+            '디자인학과', '영상학과', '미디어디자인학과', '회화과', '사진학과',
+            '만화애니메이션학과', '게임콘텐츠학과', '공연예술학과', '패션디자인학과', '산업디자인학과'
+        ];
+
+        const keywords = [
+            '양 많음', '양 적음', '빨리 나옴', '가성비 좋음', '조용함',
+            '혼밥 가능', '불친절', '청결함', '재방문 의사 있음'
+        ];
+
+        // 화면 전환 함수 (React 스타일)
+        function showScreen(screenId) {
+            // 모든 화면 숨기기
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // 선택한 화면 표시
+            const targetScreen = document.getElementById(screenId + 'Screen');
+            if (targetScreen) {
+                targetScreen.classList.add('active');
+            }
+            
+            // 네비게이션 활성화 상태 업데이트
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeNav = document.querySelector(`[data-view="${screenId}"]`);
+            if (activeNav) activeNav.classList.add('active');
+            
+            // 화면별 데이터 로드
+            if (screenId === 'trend') {
+                loadTrendData();
+            } else if (screenId === 'map') {
+                loadMapData();
+            }
+        }
+
+        // 카테고리 버튼 클릭 이벤트
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            categoryButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    currentSelectedCategory = category; // 카테고리 저장
+                    
+                    // 기록 화면으로 전환하고 카테고리 전달
+                    showScreen('record');
+                    // 화면 전환 후 약간의 지연을 두고 식당 목록 로드
+                    setTimeout(() => {
+                        loadRestaurants(category);
+                    }, 100);
+                });
+            });
+
+            // 식당 선택 시 메뉴 로드
+            const restaurantSelect = document.getElementById('restaurantSelect');
+            if (restaurantSelect) {
+                restaurantSelect.addEventListener('change', function() {
+                    loadMenus(this.value);
+                });
+            }
+
+            // 식당 추가 요청 버튼
+            const addRestaurantBtn = document.getElementById('addRestaurantBtn');
+            const customRestaurantInput = document.getElementById('customRestaurantInput');
+            const submitCustomBtn = document.getElementById('submitCustomRestaurant');
+            const cancelCustomBtn = document.getElementById('cancelCustomRestaurant');
+            const customRestaurantName = document.getElementById('customRestaurantName');
+
+            if (addRestaurantBtn) {
+                addRestaurantBtn.addEventListener('click', function() {
+                    customRestaurantInput.style.display = 'block';
+                    customRestaurantName.focus();
+                });
+            }
+
+            if (submitCustomBtn) {
+                submitCustomBtn.addEventListener('click', function() {
+                    const restaurantName = customRestaurantName.value.trim();
+                    if (restaurantName) {
+                        // 사용자 입력 식당을 선택 목록에 추가
+                        const option = document.createElement('option');
+                        option.value = restaurantName;
+                        option.textContent = restaurantName + ' (직접 입력)';
+                        option.setAttribute('data-menus', JSON.stringify(['직접 입력...']));
+                        option.setAttribute('data-custom', 'true');
+                        restaurantSelect.appendChild(option);
+                        restaurantSelect.value = restaurantName;
+                        loadMenus(restaurantName);
+                        
+                        // 입력 필드 숨기기 및 초기화
+                        customRestaurantInput.style.display = 'none';
+                        customRestaurantName.value = '';
+                        
+                        alert('식당이 추가되었습니다! 메뉴는 "직접 입력..." 옵션을 선택하여 입력해주세요.');
+                    } else {
+                        alert('식당 이름을 입력해주세요.');
+                    }
+                });
+            }
+
+            if (cancelCustomBtn) {
+                cancelCustomBtn.addEventListener('click', function() {
+                    customRestaurantInput.style.display = 'none';
+                    customRestaurantName.value = '';
+                });
+            }
+
+            // 학과 목록 로드
+            loadDepartments();
+            
+            // 키워드 로드
+            loadKeywords();
+            
+            // 상세 평가 로드
+            loadRatings();
+
+            // 지도 화면 카테고리 필터
+            const mapFilterButtons = document.querySelectorAll('.map-filter-btn');
+            mapFilterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    mapFilterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const filter = this.getAttribute('data-filter');
+                    filterMapRestaurants(filter);
+                });
+            });
+
+            // 지도 카드 닫기 버튼
+            const closeCardBtn = document.getElementById('closeCardBtn');
+            const restaurantCard = document.getElementById('restaurantCard');
+            if (closeCardBtn && restaurantCard) {
+                closeCardBtn.addEventListener('click', function() {
+                    restaurantCard.classList.remove('show');
+                });
+            }
+
+            // 하단 네비게이션 지도 버튼
+            document.querySelectorAll('[data-view="map"]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    showScreen('map');
+                });
+            });
+
+            // 트렌드 화면 탭 버튼
+            const trendTabButtons = document.querySelectorAll('.tab-btn');
+            trendTabButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    trendTabButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const period = this.getAttribute('data-period');
+                    // 탭에 따른 데이터 필터링 로직은 나중에 구현
+                    console.log('기간 선택:', period);
+                });
+            });
+
+            // 하단 네비게이션 트렌드 버튼
+            document.querySelectorAll('[data-view="trend"]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    showScreen('trend');
+                });
+            });
+
+            // 기록 완료 버튼 클릭
+            const submitBtn = document.getElementById('submitBtn');
+            if (submitBtn) {
+                submitBtn.addEventListener('click', async function(e) {
+                    e.preventDefault(); // 기본 동작 방지
+                    console.log('기록 완료 버튼 클릭됨');
+                    
+                    // 필수 필드 검증
+                    const restaurant = document.getElementById('restaurantSelect').value;
+                    const menu = document.getElementById('menuSelect').value;
+                    const department = document.getElementById('departmentSelect').value;
+
+                    if (!restaurant || !menu || !department) {
+                        showToast('필수 항목을 모두 입력해주세요.', 'error');
+                        return;
+                    }
+
+                    if (!selectedMood) {
+                        showToast('기분을 선택해주세요.', 'error');
+                        return;
+                    }
+
+                    if (ratingScores.taste === 0 || ratingScores.portion === 0 || 
+                        ratingScores.value === 0 || ratingScores.service === 0) {
+                        showToast('상세 평가를 모두 입력해주세요.', 'error');
+                        return;
+                    }
+
+                    // 현재 선택된 카테고리 가져오기
+                    const currentCategory = currentSelectedCategory || '미지정';
+                    console.log('선택된 카테고리:', currentCategory);
+
+                    // 데이터 수집 (React 파일과 동일한 구조)
+                    const formData = {
+                        timestamp: new Date().toISOString(),
+                        category: currentCategory,
+                        restaurant: restaurant,
+                        menu: menu,
+                        department: department,
+                        mood: selectedMood,
+                        taste: ratingScores.taste,
+                        portion: ratingScores.portion,
+                        value: ratingScores.value,
+                        service: ratingScores.service,
+                        keywords: selectedKeywords.join(', '),
+                        review: '', // 리뷰는 나중에 추가
+                        time: selectedTime || '',
+                        visuals: selectedVisuals.join(', ')
+                    };
+
+                    console.log('제출할 데이터:', formData);
+                    console.log('선택된 값들:', {
+                        restaurant: restaurant,
+                        menu: menu,
+                        department: department,
+                        mood: selectedMood,
+                        ratingScores: ratingScores,
+                        keywords: selectedKeywords
+                    });
+                    console.log('API URL:', API_URL);
+
+                    try {
+                        // API URL이 설정되지 않았으면 경고
+                        if (API_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+                            showToast('Google Apps Script API URL을 설정해주세요.', 'error');
+                            console.log('제출할 데이터:', formData);
+                            return;
+                        }
+
+                        // POST 요청 (React 파일과 동일한 방식 - no-cors 사용)
+                        console.log('API 요청 시작...');
+                        const response = await fetch(API_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 
+                                'Content-Type': 'application/json' 
+                            },
+                            body: JSON.stringify(formData)
+                        });
+                        
+                        console.log('Fetch 완료 (no-cors 모드에서는 응답을 확인할 수 없음)');
+
+                        console.log('API 요청 완료');
+                        
+                        // no-cors 모드에서는 응답을 받을 수 없으므로 항상 성공으로 처리
+                        showToast('식사가 기록되었습니다! 🎉', 'success');
+                        
+                        // 폼 초기화
+                        resetForm();
+                        
+                        // 홈 화면으로 이동
+                        setTimeout(() => {
+                            showScreen('home');
+                        }, 500);
+                    } catch (error) {
+                        console.error('오류:', error);
+                        showToast('기록 저장 중 오류가 발생했습니다. 다시 시도해주세요.', 'error');
+                    }
+                });
+            } else {
+                console.error('submitBtn을 찾을 수 없습니다.');
+            }
+        });
+
+        // 지도 식당 필터링
+        function filterMapRestaurants(category) {
+            // 카테고리별 식당 개수 업데이트
+            const categoryCounts = {
+                '전체': 6,
+                '중식': 6,
+                '한식': 6,
+                '일식': 6,
+                '양식': 6,
+                '디저트': 6
+            };
+
+            // 배지 업데이트
+            document.querySelectorAll('.map-filter-btn').forEach(btn => {
+                const filter = btn.getAttribute('data-filter');
+                const badge = btn.querySelector('.filter-badge');
+                if (badge) {
+                    const count = categoryCounts[filter] || 0;
+                    badge.textContent = count;
+                }
+            });
+
+            // 실제 필터링 로직은 나중에 마커 표시와 함께 구현
+            console.log('필터링:', category);
+        }
+
+        // 식당 목록 로드
+        function loadRestaurants(category) {
+            const select = document.getElementById('restaurantSelect');
+            if (!select) return;
+            
+            select.innerHTML = '<option value="">식당을 선택하세요</option>';
+            const categoryRestaurants = restaurants[category] || [];
+            
+            categoryRestaurants.forEach(restaurant => {
+                const option = document.createElement('option');
+                option.value = restaurant.name;
+                option.textContent = `${restaurant.name} (${restaurant.distance})`;
+                option.setAttribute('data-menus', JSON.stringify(restaurant.menus));
+                select.appendChild(option);
+            });
+            
+            select.disabled = false;
+        }
+
+        // 메뉴 목록 로드
+        function loadMenus(restaurantName) {
+            const select = document.getElementById('menuSelect');
+            if (!select) return;
+            
+            const restaurantOption = document.querySelector(`#restaurantSelect option[value="${restaurantName}"]`);
+            if (!restaurantOption) return;
+            
+            const menus = JSON.parse(restaurantOption.getAttribute('data-menus') || '[]');
+            select.innerHTML = '<option value="">메뉴를 선택하세요</option>';
+            
+            menus.forEach(menu => {
+                const option = document.createElement('option');
+                option.value = menu;
+                option.textContent = menu;
+                if (menu === '직접 입력...') {
+                    option.setAttribute('data-custom-menu', 'true');
+                }
+                select.appendChild(option);
+            });
+            
+            select.disabled = false;
+            
+            // 직접 입력 옵션 선택 이벤트 리스너 제거 후 재등록 (중복 방지)
+            const newSelect = select.cloneNode(true);
+            select.parentNode.replaceChild(newSelect, select);
+            
+            const menuSelect = document.getElementById('menuSelect');
+            menuSelect.addEventListener('change', function() {
+                if (this.value === '직접 입력...') {
+                    const menuName = prompt('메뉴 이름을 입력해주세요:');
+                    if (menuName && menuName.trim()) {
+                        // 직접 입력한 메뉴로 옵션 교체
+                        this.value = menuName.trim();
+                        const selectedOption = this.options[this.selectedIndex];
+                        if (selectedOption) {
+                            selectedOption.textContent = menuName.trim();
+                        }
+                    } else {
+                        this.value = '';
+                    }
+                }
+            });
+        }
+
+        // 학과 목록 로드
+        function loadDepartments() {
+            const select = document.getElementById('departmentSelect');
+            if (!select) return;
+            
+            departments.forEach(dept => {
+                const option = document.createElement('option');
+                option.value = dept;
+                option.textContent = dept;
+                select.appendChild(option);
+            });
+        }
+
+        // 키워드 로드
+        function loadKeywords() {
+            const container = document.getElementById('keywordContainer');
+            if (!container) return;
+            
+            keywords.forEach(keyword => {
+                const badge = document.createElement('button');
+                badge.className = 'keyword-badge';
+                badge.textContent = keyword;
+                badge.setAttribute('data-keyword', keyword);
+                badge.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+                container.appendChild(badge);
+            });
+        }
+
+        // 상세 평가 로드
+        function loadRatings() {
+            const container = document.getElementById('ratingContainer');
+            if (!container) return;
+            
+            const ratingCategories = [
+                { emoji: '🍜', label: '맛', id: 'taste' },
+                { emoji: '🍽️', label: '양', id: 'portion' },
+                { emoji: '💰', label: '가성비', id: 'value' },
+                { emoji: '😊', label: '서비스/분위기', id: 'service' }
+            ];
+            
+            ratingCategories.forEach(category => {
+                const ratingDiv = document.createElement('div');
+                ratingDiv.className = 'rating-item';
+                ratingDiv.innerHTML = `
+                    <div class="rating-label">
+                        <span>${category.emoji} ${category.label}</span>
+                        <span class="rating-score" id="${category.id}Score">-</span>
+                    </div>
+                    <div class="rating-stars" id="${category.id}Stars">
+                        ${[1,2,3,4,5].map(i => `<button class="star-btn" data-rating="${i}" data-category="${category.id}" aria-label="${i}점">☆</button>`).join('')}
+                    </div>
+                `;
+                container.appendChild(ratingDiv);
+            });
+            
+            // 별점 클릭 이벤트
+            container.querySelectorAll('.star-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    const category = this.getAttribute('data-category');
+                    updateRating(category, rating);
+                });
+            });
+        }
+
+        // 별점 업데이트
+        function updateRating(category, rating) {
+            ratingScores[category] = rating; // ratingScores 업데이트
+            const scoreEl = document.getElementById(category + 'Score');
+            if (scoreEl) scoreEl.textContent = rating + '점';
+            
+            const stars = document.querySelectorAll(`#${category}Stars .star-btn`);
+            stars.forEach((star, index) => {
+                const starRating = parseInt(star.getAttribute('data-rating'));
+                if (starRating <= rating) {
+                    star.classList.add('active');
+                    star.innerHTML = '⭐'; // 채워진 별
+                } else {
+                    star.classList.remove('active');
+                    star.innerHTML = '☆'; // 빈 별
+                }
+            });
+        }
+
+        // Google Apps Script API URL
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwIy5M9KOuz5QIlHAxCVsyDddyJArMUI-MWL6fJfKJRNUDLMJEqZDjqgUJK3geGDECi/exec';
+
+        // 선택된 값 저장
+        let selectedTime = '';
+        let selectedMood = '';
+        let selectedVisuals = [];
+        let selectedKeywords = [];
+        let currentSelectedCategory = null; // 현재 선택된 카테고리
+        let ratingScores = {
+            taste: 0,
+            portion: 0,
+            value: 0,
+            service: 0
+        };
+
+        // 소요 시간 버튼 클릭
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.time-btn')) {
+                const btn = e.target.closest('.time-btn');
+                document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedTime = btn.getAttribute('data-time');
+            }
+
+            // 기분 버튼 클릭
+            if (e.target.closest('.mood-btn')) {
+                const btn = e.target.closest('.mood-btn');
+                document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedMood = btn.getAttribute('data-mood');
+            }
+
+            // 시각 평가 버튼 클릭
+            if (e.target.closest('.visual-btn')) {
+                const btn = e.target.closest('.visual-btn');
+                btn.classList.toggle('active');
+                const visual = btn.textContent.trim();
+                if (btn.classList.contains('active')) {
+                    if (!selectedVisuals.includes(visual)) {
+                        selectedVisuals.push(visual);
+                    }
+                } else {
+                    selectedVisuals = selectedVisuals.filter(v => v !== visual);
+                }
+            }
+        });
+
+        // 폼 초기화
+        function resetForm() {
+            document.getElementById('restaurantSelect').value = '';
+            document.getElementById('menuSelect').value = '';
+            document.getElementById('menuSelect').disabled = true;
+            document.getElementById('departmentSelect').value = '';
+            selectedTime = '';
+            selectedMood = '';
+            selectedVisuals = [];
+            selectedKeywords = [];
+            ratingScores = { taste: 0, portion: 0, value: 0, service: 0 };
+
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.visual-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.keyword-badge').forEach(b => b.classList.remove('active'));
+            
+            // 별점 초기화
+            ['taste', 'portion', 'value', 'service'].forEach(category => {
+                const scoreEl = document.getElementById(category + 'Score');
+                if (scoreEl) scoreEl.textContent = '-';
+                const stars = document.querySelectorAll(`#${category}Stars .star-btn`);
+                stars.forEach(star => {
+                    star.classList.remove('active');
+                    star.innerHTML = '☆';
+                });
+            });
+        }
+
+        // 별점 저장
+        function updateRating(category, rating) {
+            ratingScores[category] = rating;
+            const scoreEl = document.getElementById(category + 'Score');
+            if (scoreEl) scoreEl.textContent = rating + '점';
+            
+            const stars = document.querySelectorAll(`#${category}Stars .star-btn`);
+            stars.forEach((star, index) => {
+                const starRating = parseInt(star.getAttribute('data-rating'));
+                if (starRating <= rating) {
+                    star.classList.add('active');
+                    star.innerHTML = '⭐';
+                } else {
+                    star.classList.remove('active');
+                    star.innerHTML = '☆';
+                }
+            });
+        }
+
+        // 키워드 선택
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.keyword-badge')) {
+                const badge = e.target.closest('.keyword-badge');
+                badge.classList.toggle('active');
+                const keyword = badge.getAttribute('data-keyword');
+                if (badge.classList.contains('active')) {
+                    if (!selectedKeywords.includes(keyword)) {
+                        selectedKeywords.push(keyword);
+                    }
+                } else {
+                    selectedKeywords = selectedKeywords.filter(k => k !== keyword);
+                }
+            }
+        });
+
+        // 데이터 조회 함수 (트렌드, 지도 화면용)
+        async function loadRecords() {
+            if (API_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+                console.log('API URL이 설정되지 않았습니다.');
+                return [];
+            }
+
+            try {
+                const response = await fetch(API_URL);
+                if (response.ok) {
+                    const data = await response.json();
+                    return data;
+                } else {
+                    throw new Error('데이터 조회 실패');
+                }
+            } catch (error) {
+                console.error('데이터 조회 오류:', error);
+                return [];
+            }
+        }
+
+        // 트렌드 화면 데이터 로드
+        async function loadTrendData() {
+            const records = await loadRecords();
+            if (records.length === 0) return;
+
+            // 오늘 기록 수 업데이트
+            const today = new Date().toDateString();
+            const todayRecords = records.filter(r => {
+                const recordDate = new Date(r.Timestamp).toDateString();
+                return recordDate === today;
+            });
+            const todayCountEl = document.querySelector('.stat-value');
+            if (todayCountEl) {
+                todayCountEl.textContent = todayRecords.length + '건';
+            }
+
+            // 평균 평점 계산
+            const avgRating = records.reduce((sum, r) => {
+                return sum + (parseFloat(r.TasteRating) || 0);
+            }, 0) / records.length;
+            const avgRatingEl = document.querySelector('.stat-rating span');
+            if (avgRatingEl) {
+                avgRatingEl.textContent = avgRating.toFixed(1);
+            }
+
+            // 인기 식당 계산
+            const restaurantCounts = {};
+            todayRecords.forEach(r => {
+                if (r.Restaurant) {
+                    restaurantCounts[r.Restaurant] = (restaurantCounts[r.Restaurant] || 0) + 1;
+                }
+            });
+
+            // 인기 키워드 계산
+            const keywordCounts = {};
+            records.forEach(r => {
+                if (r.Keywords) {
+                    r.Keywords.split(', ').forEach(k => {
+                        if (k.trim()) {
+                            keywordCounts[k.trim()] = (keywordCounts[k.trim()] || 0) + 1;
+                        }
+                    });
+                }
+            });
+
+            // 최근 기록 표시
+            updateRecentRecords(records.slice(0, 3));
+        }
+
+        // 최근 기록 업데이트
+        function updateRecentRecords(records) {
+            const container = document.querySelector('.recent-records');
+            if (!container) return;
+
+            container.innerHTML = '';
+            records.forEach(record => {
+                const recordItem = document.createElement('div');
+                recordItem.className = 'record-item';
+                
+                const moodEmojis = {
+                    '행복': '😊',
+                    '만족함': '😋',
+                    '보통': '😐',
+                    '별로': '😔',
+                    '나른함': '🤤',
+                    '화남': '😤'
+                };
+
+                const stars = '⭐'.repeat(Math.round(parseFloat(record.TasteRating) || 0));
+                const keywords = record.Keywords ? record.Keywords.split(', ') : [];
+                const timeAgo = getTimeAgo(new Date(record.Timestamp));
+
+                recordItem.innerHTML = `
+                    <div class="record-header">
+                        <div class="record-left">
+                            <div class="record-emoji">${moodEmojis[record.Mood] || '😊'}</div>
+                            <div class="record-info">
+                                <div class="record-menu">${record.Menu || ''}</div>
+                                <div class="record-restaurant">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 1L7 6L12 6L8 9L9 14L6 11L3 14L4 9L0 6L5 6L6 1Z" fill="#FD4B21"/>
+                                    </svg>
+                                    <span>${record.Restaurant || ''}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="record-stars">${stars}</div>
+                    </div>
+                    <div class="record-content">${record.Keywords || ''}</div>
+                    <div class="record-keywords">
+                        ${keywords.map(k => `<span class="keyword-badge-small">${k}</span>`).join('')}
+                    </div>
+                    <div class="record-footer">
+                        <span class="record-author">익명 · ${record.Department || ''}</span>
+                        <span class="record-time">${timeAgo}</span>
+                    </div>
+                `;
+                container.appendChild(recordItem);
+            });
+        }
+
+        // 시간 경과 계산
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+
+            if (minutes < 1) return '방금 전';
+            if (minutes < 60) return minutes + '분 전';
+            if (hours < 24) return hours + '시간 전';
+            return days + '일 전';
+        }
+
+        // 지도 화면 데이터 로드
+        async function loadMapData() {
+            const records = await loadRecords();
+            if (records.length === 0) return;
+
+            // 식당별 리뷰 그룹화
+            const restaurantReviews = {};
+            records.forEach(record => {
+                if (record.Restaurant) {
+                    if (!restaurantReviews[record.Restaurant]) {
+                        restaurantReviews[record.Restaurant] = [];
+                    }
+                    restaurantReviews[record.Restaurant].push(record);
+                }
+            });
+
+            // 식당 카드 업데이트 (예: 용궁각)
+            updateRestaurantCard('용궁각', restaurantReviews['용궁각'] || []);
+        }
+
+        // 식당 카드 업데이트
+        function updateRestaurantCard(restaurantName, reviews) {
+            if (reviews.length === 0) return;
+
+            // 평균 평점 계산
+            const avgRating = reviews.reduce((sum, r) => {
+                return sum + (parseFloat(r.TasteRating) || 0);
+            }, 0) / reviews.length;
+
+            // 평점 업데이트
+            const ratingScoreEl = document.querySelector('.rating-score');
+            if (ratingScoreEl) {
+                ratingScoreEl.textContent = avgRating.toFixed(1);
+            }
+
+            // 리뷰 수 업데이트
+            const reviewCountEl = document.querySelector('.review-count');
+            if (reviewCountEl) {
+                reviewCountEl.textContent = reviews.length + '개 리뷰';
+            }
+
+            // 리뷰 목록 업데이트
+            const reviewsHeader = document.querySelector('.reviews-header');
+            if (reviewsHeader) {
+                reviewsHeader.innerHTML = `<span>리뷰 ${reviews.length}개</span>`;
+            }
+
+            // 리뷰 아이템 업데이트
+            const reviewContainer = document.querySelector('.card-reviews');
+            if (reviewContainer && reviews.length > 0) {
+                const firstReview = reviews[0];
+                const reviewItem = reviewContainer.querySelector('.review-item');
+                if (reviewItem) {
+                    const moodEmojis = {
+                        '행복': '😊',
+                        '만족함': '😋',
+                        '보통': '😐',
+                        '별로': '😔',
+                        '나른함': '🤤',
+                        '화남': '😤'
+                    };
+
+                    const stars = '⭐'.repeat(Math.round(parseFloat(firstReview.TasteRating) || 0));
+                    const keywords = firstReview.Keywords ? firstReview.Keywords.split(', ') : [];
+                    const timeAgo = getTimeAgo(new Date(firstReview.Timestamp));
+
+                    reviewItem.innerHTML = `
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <span class="reviewer-name">익명</span>
+                                <span class="divider">·</span>
+                                <span class="reviewer-dept">${firstReview.Department || ''}</span>
+                            </div>
+                            <div class="review-stars">${stars}</div>
+                            <div class="review-menu-badge">
+                                <span>${firstReview.Menu || ''}</span>
+                            </div>
+                        </div>
+                        <div class="review-time">${timeAgo}</div>
+                        <div class="review-content">${firstReview.Keywords || ''}</div>
+                        <div class="review-ratings">
+                            <div class="rating-item-small">
+                                <span>🍜 맛</span>
+                                <span class="rating-point">${firstReview.TasteRating || 0}점</span>
+                            </div>
+                            <div class="rating-item-small">
+                                <span>🍽️ 양</span>
+                                <span class="rating-point">${firstReview.PortionRating || 0}점</span>
+                            </div>
+                            <div class="rating-item-small">
+                                <span>💰 가성비</span>
+                                <span class="rating-point">${firstReview.ValueRating || 0}점</span>
+                            </div>
+                            <div class="rating-item-small">
+                                <span>😊 서비스</span>
+                                <span class="rating-point">${firstReview.ServiceRating || 0}점</span>
+                            </div>
+                        </div>
+                        <div class="review-keywords">
+                            ${keywords.map(k => `<span class="keyword-badge-small">${k}</span>`).join('')}
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // Toast 알림 함수 (React 스타일)
+        function showToast(message, type = 'success') {
+            // 기존 토스트 제거
+            const existingToast = document.querySelector('.toast-message');
+            if (existingToast) {
+                existingToast.remove();
+            }
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'success' ? '#16a34a' : type === 'error' ? '#dc2626' : '#2d2d44'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                z-index: 10000;
+                animation: slideUp 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideDown 0.3s ease-out';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // CSS 애니메이션 추가
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translate(-50%, 20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate(-50%, 0);
+                }
+            }
+            @keyframes slideDown {
+                from {
+                    opacity: 1;
+                    transform: translate(-50%, 0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translate(-50%, 20px);
+                }
+            }
+            .screen {
+                animation: fadeIn 0.3s ease-in;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
