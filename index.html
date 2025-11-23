@@ -317,6 +317,31 @@
             padding: 16px;
             margin-bottom: 16px;
             box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                        max-height 0.5s ease-out,
+                        margin-bottom 0.4s ease-out;
+            /* 기본적으로 보이도록 설정 */
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 숨겨진 섹션 (display: none이 있는 경우) */
+        .card-content[style*="display: none"] {
+            opacity: 0;
+            transform: translateY(-10px);
+            max-height: 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            padding: 0;
+        }
+        
+        /* 표시되는 섹션 (show 클래스가 추가되거나 display: none이 없는 경우) */
+        .card-content.show {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 2000px;
+            margin-bottom: 16px;
         }
 
         .form-label {
@@ -324,14 +349,21 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 12px;
+            padding: 2px 0;
             font-size: 14px;
             font-weight: 400;
             color: #000000;
+            min-height: 28px;
+            overflow: visible;
         }
 
         .form-label svg {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            overflow: visible;
+            display: block;
+            overflow: visible;
         }
 
         .required {
@@ -346,24 +378,89 @@
 
         .form-select {
             width: 100%;
-            background: #CACED5;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 8px 12px;
-            font-size: 14px;
-            color: #FFFFFF;
+            background: #FFFFFF;
+            border: none !important;
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 15px;
+            color: #111827;
             margin-bottom: 8px;
             cursor: pointer;
+            transition: all 0.2s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 12px;
+            padding-right: 40px;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+        
+        /* 드롭다운 리스트 스타일 (브라우저 기본 스타일 제거) */
+        .form-select::-ms-expand {
+            display: none;
+        }
+        
+        .form-select:focus::-ms-value {
+            background: transparent;
+            color: #111827;
+        }
+
+        .form-select:hover {
+            background-color: #F9FAFB;
+        }
+
+        .form-select:focus,
+        .form-select:active,
+        .form-select:focus-visible,
+        .form-select:focus-within {
+            outline: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            background-color: #F9FAFB;
+        }
+        
+        .form-select * {
+            border: none !important;
+            outline: none !important;
         }
 
         .form-select:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            background-color: #F3F4F6;
         }
 
         .form-select option {
-            background: #CACED5;
-            color: #000000;
+            background: #FFFFFF;
+            color: #111827;
+            padding: 12px;
+            font-size: 15px;
+            border: none;
+        }
+
+        .form-select option:hover {
+            background: #F9FAFB;
+        }
+
+        .form-select option:checked,
+        .form-select option:focus,
+        .form-select option:active,
+        .form-select option[selected] {
+            background: #FD4B21 !important;
+            background-color: #FD4B21 !important;
+            color: #FFFFFF !important;
+        }
+        
+        /* 드롭다운 리스트 배경과 경계선 제거 */
+        .form-select optgroup,
+        .form-select optgroup option {
+            background: #FFFFFF;
+            border: none;
+            outline: none;
         }
 
         .form-input {
@@ -466,20 +563,24 @@
         .mood-buttons {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: 10px;
         }
 
         .mood-btn {
             background: rgba(253, 75, 33, 0.3);
             border: 1px solid rgba(255, 107, 74, 0.4);
             border-radius: 14px;
-            padding: 12px 8px;
+            padding: 16px 8px;
+            min-height: 90px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            justify-content: center;
+            gap: 6px;
             cursor: pointer;
             transition: all 0.2s;
+            overflow: visible;
+            box-sizing: border-box;
         }
 
         .mood-btn:hover {
@@ -494,8 +595,10 @@
         }
 
         .mood-label {
-            font-size: 14px;
+            font-size: 13px;
             color: rgba(255, 255, 255, 0.7);
+            line-height: 1.2;
+            white-space: nowrap;
         }
 
         .mood-btn.active .mood-label {
@@ -504,13 +607,14 @@
         }
 
         .mood-emoji {
-            font-size: 30px;
-            line-height: 36px;
-        }
-
-        .mood-label {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
+            font-size: 32px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            overflow: visible;
         }
 
         .rating-item {
@@ -1207,6 +1311,16 @@
         /* Bottom Sheet peek 상태 (일부만 보임 - 네이버 지도 스타일) */
         .restaurant-card.peek {
             transform: translateX(-50%) translateY(40%);
+            /* peek 상태일 때 스크롤 가능하도록 */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* peek 상태일 때 스크롤 영역 활성화 */
+        .restaurant-card.peek .card-content {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            max-height: calc(60vh - 80px);
         }
 
         /* Bottom Sheet 완전히 열림 */
@@ -2056,6 +2170,157 @@
             font-size: 12px;
             line-height: 16px;
         }
+
+        /* 한줄 댓글 스타일 */
+        .comment-input-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            background: #FFFFFF;
+            font-size: 14px;
+            color: #111827;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .comment-input:focus {
+            border-color: #FD4B21;
+        }
+
+        .comment-input::placeholder {
+            color: #9CA3AF;
+        }
+
+        .comment-submit-btn {
+            width: 48px;
+            height: 48px;
+            background: #FD4B21;
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .comment-submit-btn:hover {
+            background: #E63900;
+        }
+
+        .comment-submit-btn:active {
+            background: #CC3300;
+        }
+
+        .comment-submit-btn:disabled {
+            background: #E5E7EB;
+            cursor: not-allowed;
+        }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .comment-item {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1px solid #E5E7EB;
+        }
+
+        .comment-text {
+            color: #111827;
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 8px;
+        }
+
+        .comment-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* 문의함 스타일 */
+        .inquiry-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .inquiry-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .inquiry-label {
+            color: #111827;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .inquiry-input,
+        .inquiry-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            background: #FFFFFF;
+            font-size: 14px;
+            color: #111827;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .inquiry-input:focus,
+        .inquiry-textarea:focus {
+            border-color: #FD4B21;
+        }
+
+        .inquiry-input::placeholder,
+        .inquiry-textarea::placeholder {
+            color: #9CA3AF;
+        }
+
+        .inquiry-textarea {
+            min-height: 120px;
+        }
+
+        .inquiry-submit-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: #FD4B21;
+            border: none;
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .inquiry-submit-btn:hover {
+            background: #E63900;
+        }
+
+        .inquiry-submit-btn:active {
+            background: #CC3300;
+        }
     </style>
 </head>
 <body>
@@ -2171,9 +2436,9 @@
             <!-- 위치 선택 -->
             <div class="card-content">
                 <div class="form-label">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 5.029 7.029 1 12 1C16.971 1 21 5.029 21 10Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="10" r="3" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <span>위치 선택</span>
                     <span class="required">*</span>
@@ -2199,8 +2464,12 @@
             <!-- 메뉴 선택 -->
             <div class="card-content" id="menuSection" style="display: none;">
                 <div class="form-label">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 3H5L5.4 5M7 13H10L14 8H5.4M7 13L5.4 5M7 13L4.707 15.293C4.077 15.923 5.293 17 6 17H17M17 17C17 18.105 16.105 19 15 19C13.895 19 13 18.105 13 17C13 15.895 13.895 15 15 15C16.105 15 17 15.895 17 17ZM9 19C9 20.105 8.105 21 7 21C5.895 21 5 20.105 5 19C5 17.895 5.895 17 7 17C8.105 17 9 17.895 9 19Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12H21M3 12C3 8.686 5.686 6 9 6H15C18.314 6 21 8.686 21 12M3 12V18C3 19.105 3.895 20 5 20H19C20.105 20 21 19.105 21 18V12" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 6V4C9 2.895 9.895 2 11 2H13C14.105 2 15 2.895 15 4V6" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="8" cy="15" r="1" fill="#FF6B4A"/>
+                        <circle cx="12" cy="15" r="1" fill="#FF6B4A"/>
+                        <circle cx="16" cy="15" r="1" fill="#FF6B4A"/>
                     </svg>
                     <span>메뉴</span>
                     <span class="required">*</span>
@@ -2213,9 +2482,11 @@
             <!-- 학과 선택 -->
             <div class="card-content" id="departmentSection" style="display: none;">
                 <div class="form-label">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 14l9-5-9-5-9 5 9 5z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 10L12 4L2 10L12 16L22 10Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 10V18L12 22L2 18V10" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 16V22" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 10L12 16L22 10" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <span>학과</span>
                     <span class="required">*</span>
@@ -2242,8 +2513,11 @@
             <!-- 기분 표시 -->
             <div class="card-content" id="moodSection" style="display: none;">
                 <div class="form-label">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="9" cy="10" r="1" fill="#FF6B4A"/>
+                        <circle cx="15" cy="10" r="1" fill="#FF6B4A"/>
                     </svg>
                     <span>기분 표시</span>
                     <span class="required">*</span>
@@ -2317,12 +2591,17 @@
                     <span>학생 한 줄 팁</span>
                 </div>
                 <p class="form-description">해당하는 키워드를 모두 선택해주세요</p>
-                <button class="add-keyword-btn">
+                <button class="add-keyword-btn" id="addKeywordBtn">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 3V13M3 8H13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                     <span>기타 키워드 추가</span>
                 </button>
+                <div id="customKeywordInput" style="display: none; margin-top: 12px; gap: 8px; align-items: center; flex-direction: row;">
+                    <input type="text" id="customKeyword" placeholder="직접 입력..." style="flex: 1; padding: 10px 14px; border: 1px solid #E5E7EB; border-radius: 8px; font-size: 14px; outline: none;">
+                    <button type="button" id="submitCustomKeyword" style="padding: 10px 16px; background: #FD4B21; color: #FFFFFF; border: none; border-radius: 8px; font-size: 14px; cursor: pointer;">추가</button>
+                    <button type="button" id="cancelCustomKeyword" style="padding: 10px 16px; background: #E5E7EB; color: #111827; border: none; border-radius: 8px; font-size: 14px; cursor: pointer;">취소</button>
+                </div>
                 <div class="keyword-badges" id="keywordContainer"></div>
             </div>
 
@@ -3408,6 +3687,51 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 한줄 댓글 작성 -->
+            <div class="trend-card">
+                <div class="trend-card-title">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 1L12 7L18 7L13 11L15 17L10 13L5 17L7 11L2 7L8 7L10 1Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>한줄 댓글</span>
+                </div>
+                <div class="comment-input-container">
+                    <input type="text" id="commentInput" class="comment-input" placeholder="한줄 댓글을 작성해주세요..." maxlength="100">
+                    <button type="button" id="submitCommentBtn" class="comment-submit-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="comment-list" id="commentList">
+                    <!-- 댓글이 동적으로 추가됩니다 -->
+                </div>
+            </div>
+
+            <!-- 문의함 -->
+            <div class="trend-card">
+                <div class="trend-card-title">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 4H18V16H2V4Z" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 4L10 10L18 4" stroke="#FF6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>문의함</span>
+                </div>
+                <div class="inquiry-form">
+                    <div class="inquiry-field">
+                        <label class="inquiry-label">제목</label>
+                        <input type="text" id="inquiryTitle" class="inquiry-input" placeholder="문의 제목을 입력해주세요">
+                    </div>
+                    <div class="inquiry-field">
+                        <label class="inquiry-label">내용</label>
+                        <textarea id="inquiryContent" class="inquiry-textarea" placeholder="문의 내용을 입력해주세요" rows="5"></textarea>
+                    </div>
+                    <button type="button" id="submitInquiryBtn" class="inquiry-submit-btn">
+                        <span>문의하기</span>
+                    </button>
+                </div>
+            </div>
         </main>
 
         <!-- 하단 네비게이션 (기록 화면에서는 숨김) -->
@@ -3530,7 +3854,7 @@
         };
 
         // Google Apps Script API URL (배포된 웹 앱 URL)
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwIy5M9KOuz5QIlHAxCVsyDddyJArMUI-MWL6fJfKJRNUDLMJEqZDjqgUJK3geGDECi/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzHvn69eaMhBAf33nKizfChX0KRMevDBP0tj9PT7ylV2WPYM3uh-kU1hIC_H_Ak2UPknQ/exec';
 
         // ============================================
         // 🖥️ 화면 관리 (Screen Management)
@@ -3575,6 +3899,7 @@
             // 화면별 데이터 로드
             if (screenId === 'trend') {
                 loadTrendData();
+                loadComments(); // 댓글 로드
             } else if (screenId === 'map') {
                 loadMapData();
             }
@@ -3585,7 +3910,38 @@
         // ============================================
         
         // 인기 식당 탭 클릭 이벤트
+        // 드롭다운 선택 시 파란색 제거 및 주황색 적용
+        function removeBlueSelection() {
+            const selects = document.querySelectorAll('.form-select');
+            selects.forEach(select => {
+                // change 이벤트로 선택된 옵션의 스타일 강제 적용
+                select.addEventListener('change', function() {
+                    const selectedOption = this.options[this.selectedIndex];
+                    if (selectedOption) {
+                        // 모든 옵션의 selected 속성 제거
+                        Array.from(this.options).forEach(opt => {
+                            opt.removeAttribute('selected');
+                        });
+                        // 선택된 옵션에 selected 속성 추가
+                        selectedOption.setAttribute('selected', 'selected');
+                    }
+                });
+                
+                // focus 이벤트로도 처리
+                select.addEventListener('focus', function() {
+                    const selectedOption = this.options[this.selectedIndex];
+                    if (selectedOption) {
+                        selectedOption.style.backgroundColor = '#FD4B21';
+                        selectedOption.style.color = '#FFFFFF';
+                    }
+                });
+            });
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
+            // 드롭다운 파란색 제거 함수 호출
+            removeBlueSelection();
+            
             // 인기 식당 탭 버튼 클릭 이벤트
             const tabButtons = document.querySelectorAll('.tab-btn[data-period]');
             tabButtons.forEach(btn => {
@@ -3654,6 +4010,21 @@
             // 식당 선택 시 메뉴 로드 및 다음 단계 표시
             const restaurantSelect = document.getElementById('restaurantSelect');
             if (restaurantSelect) {
+                // 선택된 옵션의 파란색 제거 및 주황색 적용
+                restaurantSelect.addEventListener('change', function() {
+                    // 모든 옵션의 스타일 초기화
+                    Array.from(this.options).forEach(opt => {
+                        opt.style.backgroundColor = '';
+                        opt.style.color = '';
+                    });
+                    // 선택된 옵션에 주황색 적용
+                    const selectedOption = this.options[this.selectedIndex];
+                    if (selectedOption && selectedOption.value) {
+                        selectedOption.style.backgroundColor = '#FD4B21';
+                        selectedOption.style.color = '#FFFFFF';
+                    }
+                });
+                
                 restaurantSelect.addEventListener('change', function() {
                     if (this.value) {
                         loadMenus(this.value);
@@ -3661,11 +4032,21 @@
                         const menuSection = document.getElementById('menuSection');
                         if (menuSection) {
                             menuSection.style.display = 'block';
-                            menuSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            // 애니메이션을 위해 약간의 지연 후 클래스 추가
+                            setTimeout(() => {
+                                menuSection.classList.add('show');
+                                menuSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }, 10);
                         }
                     } else {
                         // 식당 선택 취소 시 메뉴 섹션 숨기기
-                        document.getElementById('menuSection').style.display = 'none';
+                        const menuSection = document.getElementById('menuSection');
+                        if (menuSection) {
+                            menuSection.classList.remove('show');
+                            setTimeout(() => {
+                                menuSection.style.display = 'none';
+                            }, 400);
+                        }
                     }
                 });
             }
@@ -3673,15 +4054,57 @@
             // 메뉴 선택 시 학과 섹션 표시
             const menuSelect = document.getElementById('menuSelect');
             if (menuSelect) {
+                // 선택된 옵션의 파란색 제거 및 주황색 적용 (모든 이벤트에서)
+                function applyOrangeStyle(select) {
+                    Array.from(select.options).forEach(opt => {
+                        opt.style.backgroundColor = '';
+                        opt.style.color = '';
+                    });
+                    const selectedOption = select.options[select.selectedIndex];
+                    if (selectedOption && selectedOption.value) {
+                        selectedOption.style.backgroundColor = '#FD4B21';
+                        selectedOption.style.color = '#FFFFFF';
+                    }
+                }
+                
+                // change 이벤트
+                menuSelect.addEventListener('change', function() {
+                    applyOrangeStyle(this);
+                });
+                
+                // focus 이벤트
+                menuSelect.addEventListener('focus', function() {
+                    applyOrangeStyle(this);
+                });
+                
+                // click 이벤트
+                menuSelect.addEventListener('click', function() {
+                    setTimeout(() => applyOrangeStyle(this), 10);
+                });
+                
+                // blur 이벤트 (드롭다운이 닫힐 때)
+                menuSelect.addEventListener('blur', function() {
+                    setTimeout(() => applyOrangeStyle(this), 100);
+                });
+                
                 menuSelect.addEventListener('change', function() {
                     if (this.value) {
                         const departmentSection = document.getElementById('departmentSection');
                         if (departmentSection) {
                             departmentSection.style.display = 'block';
-                            departmentSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            setTimeout(() => {
+                                departmentSection.classList.add('show');
+                                departmentSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }, 10);
                         }
                     } else {
-                        document.getElementById('departmentSection').style.display = 'none';
+                        const departmentSection = document.getElementById('departmentSection');
+                        if (departmentSection) {
+                            departmentSection.classList.remove('show');
+                            setTimeout(() => {
+                                departmentSection.style.display = 'none';
+                            }, 400);
+                        }
                     }
                 });
             }
@@ -3689,20 +4112,51 @@
             // 학과 선택 시 소요 시간 및 기분 섹션 표시
             const departmentSelect = document.getElementById('departmentSelect');
             if (departmentSelect) {
+                // 선택된 옵션의 파란색 제거 및 주황색 적용
+                departmentSelect.addEventListener('change', function() {
+                    Array.from(this.options).forEach(opt => {
+                        opt.style.backgroundColor = '';
+                        opt.style.color = '';
+                    });
+                    const selectedOption = this.options[this.selectedIndex];
+                    if (selectedOption && selectedOption.value) {
+                        selectedOption.style.backgroundColor = '#FD4B21';
+                        selectedOption.style.color = '#FFFFFF';
+                    }
+                });
+                
                 departmentSelect.addEventListener('change', function() {
                     if (this.value) {
                         const timeSection = document.getElementById('timeSection');
                         const moodSection = document.getElementById('moodSection');
                         if (timeSection) {
                             timeSection.style.display = 'block';
-                            timeSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            setTimeout(() => {
+                                timeSection.classList.add('show');
+                                timeSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }, 10);
                         }
                         if (moodSection) {
                             moodSection.style.display = 'block';
+                            setTimeout(() => {
+                                moodSection.classList.add('show');
+                            }, 10);
                         }
                     } else {
-                        document.getElementById('timeSection').style.display = 'none';
-                        document.getElementById('moodSection').style.display = 'none';
+                        const timeSection = document.getElementById('timeSection');
+                        const moodSection = document.getElementById('moodSection');
+                        if (timeSection) {
+                            timeSection.classList.remove('show');
+                            setTimeout(() => {
+                                timeSection.style.display = 'none';
+                            }, 400);
+                        }
+                        if (moodSection) {
+                            moodSection.classList.remove('show');
+                            setTimeout(() => {
+                                moodSection.style.display = 'none';
+                            }, 400);
+                        }
                     }
                 });
             }
@@ -4019,6 +4473,40 @@
                     showScreen('trend');
                 });
             });
+            
+            // 한줄 댓글 제출 버튼
+            const submitCommentBtn = document.getElementById('submitCommentBtn');
+            const commentInput = document.getElementById('commentInput');
+            if (submitCommentBtn && commentInput) {
+                submitCommentBtn.addEventListener('click', function() {
+                    const text = commentInput.value;
+                    if (text && text.trim()) {
+                        addComment(text);
+                        commentInput.value = '';
+                    }
+                });
+                
+                commentInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        const text = commentInput.value;
+                        if (text && text.trim()) {
+                            addComment(text);
+                            commentInput.value = '';
+                        }
+                    }
+                });
+            }
+            
+            // 문의함 제출 버튼
+            const submitInquiryBtn = document.getElementById('submitInquiryBtn');
+            const inquiryTitle = document.getElementById('inquiryTitle');
+            const inquiryContent = document.getElementById('inquiryContent');
+            if (submitInquiryBtn && inquiryTitle && inquiryContent) {
+                submitInquiryBtn.addEventListener('click', function() {
+                    submitInquiry(inquiryTitle.value, inquiryContent.value);
+                });
+            }
 
             // 기록 완료 버튼 클릭
             const submitBtn = document.getElementById('submitBtn');
@@ -4052,22 +4540,21 @@
                     const currentCategory = currentSelectedCategory || '미지정';
                     console.log('선택된 카테고리:', currentCategory);
 
-                    // 데이터 수집 (React 파일과 동일한 구조)
+                    // 데이터 수집 (Google Apps Script가 기대하는 필드명으로 매핑)
                     const formData = {
-                        timestamp: new Date().toISOString(),
-                        category: currentCategory,
-                        restaurant: restaurant,
-                        menu: menu,
-                        department: department,
-                        mood: selectedMood,
-                        taste: ratingScores.taste,
-                        portion: ratingScores.portion,
-                        value: ratingScores.value,
-                        service: ratingScores.service,
-                        keywords: selectedKeywords.join(', '),
-                        review: '', // 리뷰는 나중에 추가
-                        time: selectedTime || '',
-                        visuals: selectedVisuals.join(', ')
+                        Timestamp: new Date().toISOString(),
+                        Restaurant: restaurant || '',
+                        Menu: menu || '',
+                        Department: department || '',
+                        Time: selectedTime || '',
+                        Mood: selectedMood || '',
+                        TasteRating: ratingScores.taste || 0,
+                        PortionRating: ratingScores.portion || 0,
+                        ValueRating: ratingScores.value || 0,
+                        ServiceRating: ratingScores.service || 0,
+                        Visuals: selectedVisuals.join(', ') || '',
+                        Keywords: selectedKeywords.join(', ') || '',
+                        Photo: selectedPhoto || '' // Base64 인코딩된 사진 데이터
                     };
 
                     console.log('제출할 데이터:', formData);
@@ -4094,25 +4581,50 @@
                         console.log('API URL:', API_URL);
                         console.log('전송할 데이터:', JSON.stringify(formData));
                         
-                        let response;
                         try {
-                            // 일반 POST 요청 시도
-                            response = await fetch(API_URL, {
-                                method: 'POST',
-                                headers: { 
-                                    'Content-Type': 'application/json' 
-                                },
-                                body: JSON.stringify(formData)
-                            });
+                            // 사진 데이터가 있으면 JSON 형식으로, 없으면 URL-encoded 형식으로 전송
+                            let requestBody;
+                            let contentType;
                             
-                            console.log('응답 상태:', response.status);
-                            console.log('응답 OK:', response.ok);
+                            if (formData.Photo && formData.Photo.length > 0) {
+                                // 사진 데이터가 있으면 JSON 형식으로 전송 (Base64 데이터가 크기 때문)
+                                requestBody = JSON.stringify(formData);
+                                contentType = 'application/json';
+                                console.log('전송할 데이터 (JSON 형식, 사진 포함):', {
+                                    ...formData,
+                                    Photo: formData.Photo.substring(0, 50) + '... (Base64 데이터, 길이: ' + formData.Photo.length + ')'
+                                });
+                            } else {
+                                // 사진 데이터가 없으면 URL-encoded 형식으로 전송
+                                const formDataEncoded = new URLSearchParams();
+                                Object.keys(formData).forEach(key => {
+                                    const value = formData[key];
+                                    if (value !== null && value !== undefined) {
+                                        formDataEncoded.append(key, String(value));
+                                    }
+                                });
+                                requestBody = formDataEncoded.toString();
+                                contentType = 'application/x-www-form-urlencoded';
+                                console.log('전송할 데이터 (URL-encoded):', formData);
+                            }
                             
-                            if (response.ok) {
-                                const result = await response.json();
-                                console.log('응답 받음:', result);
+                            // 먼저 일반 POST 요청 시도 (CORS 허용 시)
+                            let response;
+                            try {
+                                response = await fetch(API_URL, {
+                                    method: 'POST',
+                                    headers: { 
+                                        'Content-Type': contentType
+                                    },
+                                    body: requestBody
+                                });
                                 
-                                if (result.success) {
+                                console.log('응답 상태:', response.status);
+                                console.log('응답 OK:', response.ok);
+                                
+                                if (response.ok) {
+                                    const result = await response.json();
+                                    console.log('응답 받음:', result);
                                     showToast('식사가 기록되었습니다! 🎉', 'success');
                                     
                                     // 폼 초기화
@@ -4123,13 +4635,23 @@
                                         showScreen('home');
                                     }, 500);
                                 } else {
-                                    showToast('기록 저장 중 오류가 발생했습니다: ' + (result.error || '알 수 없는 오류'), 'error');
-                                    console.error('서버 오류:', result);
+                                    throw new Error(`응답 상태: ${response.status}`);
                                 }
-                            } else {
-                                // 응답이 실패했지만 CORS 에러일 수 있으므로 일단 성공으로 처리
-                                console.warn('응답 상태가 OK가 아니지만, CORS 문제일 수 있습니다. 상태:', response.status);
-                                showToast('식사가 기록되었습니다! 🎉 (응답 확인 불가)', 'success');
+                            } catch (fetchError) {
+                                // CORS 오류인 경우 no-cors 모드로 재시도
+                                console.warn('일반 POST 실패, no-cors 모드로 재시도:', fetchError);
+                                
+                                await fetch(API_URL, {
+                                    method: 'POST',
+                                    mode: 'no-cors',
+                                    headers: { 
+                                        'Content-Type': contentType
+                                    },
+                                    body: requestBody
+                                });
+                                
+                                console.log('데이터 전송 완료 (no-cors 모드)');
+                                showToast('식사가 기록되었습니다! 🎉', 'success');
                                 
                                 // 폼 초기화
                                 resetForm();
@@ -4139,34 +4661,15 @@
                                     showScreen('home');
                                 }, 500);
                             }
-                        } catch (fetchError) {
-                            // CORS 에러나 네트워크 에러 처리
-                            console.error('Fetch 오류:', fetchError);
-                            console.error('오류 타입:', fetchError.name);
-                            console.error('오류 메시지:', fetchError.message);
                             
-                            // CORS 에러인 경우에도 데이터는 전송되었을 수 있음
-                            if (fetchError.name === 'TypeError' && fetchError.message.includes('Failed to fetch')) {
-                                console.warn('CORS 또는 네트워크 오류로 응답을 받을 수 없지만, 데이터는 전송되었을 수 있습니다.');
-                                showToast('식사가 기록되었습니다! 🎉 (응답 확인 불가)', 'success');
-                                
-                                // 폼 초기화
-                                resetForm();
-                                
-                                // 홈 화면으로 이동
-                                setTimeout(() => {
-                                    showScreen('home');
-                                }, 500);
-                            } else {
-                                throw fetchError; // 다른 오류는 다시 throw
-                            }
+                        } catch (error) {
+                            console.error('전체 오류:', error);
+                            console.error('오류 상세:', error.message);
+                            showToast('기록 저장 중 오류가 발생했습니다. 콘솔을 확인해주세요.', 'error');
                         }
-
-                        console.log('API 요청 완료');
                     } catch (error) {
                         console.error('전체 오류:', error);
-                        console.error('오류 스택:', error.stack);
-                        showToast('기록 저장 중 오류가 발생했습니다. 다시 시도해주세요.', 'error');
+                        showToast('기록 저장 중 오류가 발생했습니다.', 'error');
                     }
                 });
             } else {
@@ -4564,6 +5067,65 @@
             
             const menuSelect = document.getElementById('menuSelect');
             
+            // 메뉴 옵션이 동적으로 추가된 후에도 주황색 스타일 강제 적용
+            if (menuSelect) {
+                // 주황색 스타일 강제 적용 함수 (인라인 스타일로 강제)
+                function forceMenuOrangeStyle(select) {
+                    // 모든 옵션 초기화
+                    Array.from(select.options).forEach(opt => {
+                        opt.style.backgroundColor = '';
+                        opt.style.color = '';
+                        opt.removeAttribute('selected');
+                    });
+                    
+                    // 선택된 옵션에 주황색 강제 적용
+                    const selectedOption = select.options[select.selectedIndex];
+                    if (selectedOption && selectedOption.value) {
+                        selectedOption.style.backgroundColor = '#FD4B21';
+                        selectedOption.style.color = '#FFFFFF';
+                        selectedOption.setAttribute('selected', 'selected');
+                        // 인라인 스타일로 강제 적용
+                        selectedOption.setAttribute('style', 'background-color: #FD4B21 !important; color: #FFFFFF !important;');
+                    }
+                }
+                
+                // 모든 이벤트에서 주황색 스타일 강제 적용
+                menuSelect.addEventListener('change', function() {
+                    forceMenuOrangeStyle(this);
+                });
+                
+                menuSelect.addEventListener('focus', function() {
+                    forceMenuOrangeStyle(this);
+                });
+                
+                menuSelect.addEventListener('click', function() {
+                    setTimeout(() => forceMenuOrangeStyle(this), 10);
+                });
+                
+                menuSelect.addEventListener('mousedown', function() {
+                    setTimeout(() => forceMenuOrangeStyle(this), 10);
+                });
+                
+                menuSelect.addEventListener('mouseup', function() {
+                    setTimeout(() => forceMenuOrangeStyle(this), 50);
+                });
+                
+                menuSelect.addEventListener('blur', function() {
+                    setTimeout(() => forceMenuOrangeStyle(this), 100);
+                });
+                
+                // 옵션이 동적으로 추가될 때도 스타일 적용
+                const observer = new MutationObserver(function(mutations) {
+                    setTimeout(() => forceMenuOrangeStyle(menuSelect), 10);
+                });
+                observer.observe(menuSelect, { childList: true, subtree: true, attributes: true });
+                
+                // blur 이벤트 (드롭다운이 닫힐 때)
+                menuSelect.addEventListener('blur', function() {
+                    setTimeout(() => applyMenuOrangeStyle(this), 100);
+                });
+            }
+            
             // 직접 입력 옵션 처리
             menuSelect.addEventListener('change', function() {
                 if (this.value === '직접 입력...') {
@@ -4586,13 +5148,17 @@
                     if (departmentSection) {
                         departmentSection.style.display = 'block';
                         setTimeout(() => {
+                            departmentSection.classList.add('show');
                             departmentSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }, 100);
+                        }, 10);
                     }
                 } else {
                     const departmentSection = document.getElementById('departmentSection');
                     if (departmentSection) {
-                        departmentSection.style.display = 'none';
+                        departmentSection.classList.remove('show');
+                        setTimeout(() => {
+                            departmentSection.style.display = 'none';
+                        }, 400);
                     }
                 }
             });
@@ -4694,11 +5260,15 @@
                 if (visualSection) {
                     visualSection.style.display = 'block';
                     setTimeout(() => {
+                        visualSection.classList.add('show');
                         visualSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 100);
+                    }, 10);
                 }
                 if (keywordSection) {
                     keywordSection.style.display = 'block';
+                    setTimeout(() => {
+                        keywordSection.classList.add('show');
+                    }, 10);
                     // 키워드 섹션이 표시될 때 키워드 로드 (컨테이너가 존재하는지 확인)
                     const keywordContainer = document.getElementById('keywordContainer');
                     if (keywordContainer && keywordContainer.children.length === 0) {
@@ -4707,6 +5277,9 @@
                 }
                 if (photoSection) {
                     photoSection.style.display = 'block';
+                    setTimeout(() => {
+                        photoSection.classList.add('show');
+                    }, 10);
                 }
             }
         }
@@ -4736,8 +5309,9 @@
                 if (ratingSection) {
                     ratingSection.style.display = 'block';
                     setTimeout(() => {
+                        ratingSection.classList.add('show');
                         ratingSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 100);
+                    }, 10);
                     
                 }
             }
@@ -4828,12 +5402,40 @@
             selectedMood = '';
             selectedVisuals = [];
             selectedKeywords = [];
+            selectedPhoto = null; // 사진 초기화
             ratingScores = { taste: 0, portion: 0, value: 0, service: 0 };
 
             document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.visual-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.keyword-badge').forEach(b => b.classList.remove('active'));
+            
+            // 기타 키워드 입력 필드 초기화
+            const customKeywordInput = document.getElementById('customKeywordInput');
+            const addKeywordBtn = document.getElementById('addKeywordBtn');
+            const customKeyword = document.getElementById('customKeyword');
+            if (customKeywordInput) customKeywordInput.style.display = 'none';
+            if (addKeywordBtn) addKeywordBtn.style.display = 'flex';
+            if (customKeyword) customKeyword.value = '';
+            
+            // 기타 키워드 추가된 배지 제거 (1회성 초기화)
+            const keywordContainer = document.getElementById('keywordContainer');
+            if (keywordContainer) {
+                const customBadges = keywordContainer.querySelectorAll('[data-custom="true"]');
+                customBadges.forEach(badge => badge.remove());
+            }
+            
+            // 기타 키워드 추가 플래그 초기화
+            customKeywordAdded = false;
+            
+            // 사진 미리보기 및 입력 초기화
+            const photoInput = document.getElementById('photoInput');
+            const photoPreview = document.getElementById('photoPreview');
+            const photoUploadText = document.getElementById('photoUploadText');
+            if (photoInput) photoInput.value = '';
+            if (photoPreview) photoPreview.style.display = 'none';
+            if (photoUploadText) photoUploadText.textContent = '사진 업로드';
+            selectedPhoto = null; // 사진 데이터 초기화
             
             // 별점 초기화
             ['taste', 'portion', 'value', 'service'].forEach(category => {
@@ -4863,6 +5465,105 @@
                 }
                 
                 console.log('선택된 키워드:', selectedKeywords);
+            }
+        });
+        
+        // 기타 키워드 추가 기능 (1회성)
+        let customKeywordAdded = false; // 전역 변수로 선언
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const addKeywordBtn = document.getElementById('addKeywordBtn');
+            const customKeywordInput = document.getElementById('customKeywordInput');
+            const customKeyword = document.getElementById('customKeyword');
+            const submitCustomKeyword = document.getElementById('submitCustomKeyword');
+            const cancelCustomKeyword = document.getElementById('cancelCustomKeyword');
+            const keywordContainer = document.getElementById('keywordContainer');
+            
+            if (addKeywordBtn && customKeywordInput) {
+                // 기타 키워드 추가 버튼 클릭
+                addKeywordBtn.addEventListener('click', function() {
+                    addKeywordBtn.style.display = 'none';
+                    customKeywordInput.style.display = 'flex';
+                    if (customKeyword) customKeyword.focus();
+                });
+                
+                // 취소 버튼 클릭
+                if (cancelCustomKeyword) {
+                    cancelCustomKeyword.addEventListener('click', function() {
+                        addKeywordBtn.style.display = 'flex';
+                        customKeywordInput.style.display = 'none';
+                        if (customKeyword) customKeyword.value = '';
+                    });
+                }
+                
+                // 추가 버튼 클릭 또는 Enter 키
+                if (submitCustomKeyword && customKeyword) {
+                    submitCustomKeyword.addEventListener('click', function() {
+                        addCustomKeyword();
+                    });
+                    
+                    customKeyword.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            addCustomKeyword();
+                        }
+                    });
+                }
+            }
+            
+            function addCustomKeyword() {
+                if (!customKeyword || !keywordContainer) return;
+                
+                // 이미 기타 키워드를 추가했으면 추가 불가
+                if (customKeywordAdded) {
+                    alert('기타 키워드는 한 번만 추가할 수 있습니다.');
+                    return;
+                }
+                
+                const keyword = customKeyword.value.trim();
+                if (keyword && keyword.length > 0) {
+                    // 중복 체크
+                    if (selectedKeywords.includes(keyword)) {
+                        alert('이미 추가된 키워드입니다.');
+                        return;
+                    }
+                    
+                    // 키워드 배지 생성
+                    const badge = document.createElement('div');
+                    badge.className = 'keyword-badge active';
+                    badge.setAttribute('data-keyword', keyword);
+                    badge.setAttribute('data-custom', 'true'); // 기타 키워드 표시
+                    badge.textContent = keyword;
+                    
+                    // 클릭 이벤트 추가
+                    badge.addEventListener('click', function() {
+                        badge.classList.toggle('active');
+                        if (badge.classList.contains('active')) {
+                            if (!selectedKeywords.includes(keyword)) {
+                                selectedKeywords.push(keyword);
+                            }
+                        } else {
+                            selectedKeywords = selectedKeywords.filter(k => k !== keyword);
+                        }
+                        console.log('선택된 키워드:', selectedKeywords);
+                    });
+                    
+                    // 컨테이너에 추가
+                    keywordContainer.appendChild(badge);
+                    
+                    // selectedKeywords에 추가
+                    selectedKeywords.push(keyword);
+                    
+                    // 기타 키워드 추가 플래그 설정
+                    customKeywordAdded = true;
+                    
+                    // 입력 필드 초기화 및 숨기기
+                    customKeyword.value = '';
+                    addKeywordBtn.style.display = 'flex';
+                    customKeywordInput.style.display = 'none';
+                    
+                    console.log('선택된 키워드:', selectedKeywords);
+                }
             }
         });
 
@@ -5012,6 +5713,77 @@
         }
         
         // 예시 인기 키워드 표시 (데이터가 없을 때)
+        // 한줄 댓글 기능
+        let comments = JSON.parse(localStorage.getItem('comments') || '[]');
+        
+        function loadComments() {
+            const commentList = document.getElementById('commentList');
+            if (!commentList) return;
+            
+            if (comments.length === 0) {
+                commentList.innerHTML = '<div style="text-align: center; padding: 20px; color: rgba(0, 0, 0, 0.4); font-size: 14px;">아직 댓글이 없습니다.</div>';
+                return;
+            }
+            
+            commentList.innerHTML = comments.map((comment, index) => {
+                const timeAgo = getTimeAgo(new Date(comment.timestamp));
+                return `
+                    <div class="comment-item">
+                        <div class="comment-text">${comment.text}</div>
+                        <div class="comment-footer">
+                            <span>익명</span>
+                            <span>${timeAgo}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function addComment(text) {
+            if (!text || !text.trim()) return;
+            
+            const comment = {
+                text: text.trim(),
+                timestamp: new Date().toISOString()
+            };
+            
+            comments.unshift(comment); // 최신 댓글이 위에 오도록
+            if (comments.length > 50) {
+                comments = comments.slice(0, 50); // 최대 50개만 유지
+            }
+            
+            localStorage.setItem('comments', JSON.stringify(comments));
+            loadComments();
+        }
+        
+        // 문의함 기능
+        function submitInquiry(title, content) {
+            if (!title || !title.trim() || !content || !content.trim()) {
+                alert('제목과 내용을 모두 입력해주세요.');
+                return;
+            }
+            
+            const inquiry = {
+                title: title.trim(),
+                content: content.trim(),
+                timestamp: new Date().toISOString()
+            };
+            
+            // 로컬 스토리지에 저장 (실제로는 서버로 전송해야 함)
+            let inquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
+            inquiries.unshift(inquiry);
+            if (inquiries.length > 100) {
+                inquiries = inquiries.slice(0, 100);
+            }
+            localStorage.setItem('inquiries', JSON.stringify(inquiries));
+            
+            alert('문의가 접수되었습니다. 감사합니다!');
+            
+            // 폼 초기화
+            document.getElementById('inquiryTitle').value = '';
+            document.getElementById('inquiryContent').value = '';
+        }
+
         function showExampleKeywords() {
             const container = document.getElementById('popularKeywordsList');
             if (!container) return;
@@ -5961,8 +6733,237 @@
                 from { opacity: 0; }
                 to { opacity: 1; }
             }
+            
+            /* 드롭다운 옵션 리스트 스타일 개선 */
+            .form-select option {
+                background-color: #FFFFFF !important;
+                color: #111827 !important;
+            }
+            
+            .form-select option:checked,
+            .form-select option:focus,
+            .form-select option:active,
+            .form-select option[selected],
+            .form-select option[value]:checked {
+                background-color: #FD4B21 !important;
+                background: #FD4B21 !important;
+                color: #FFFFFF !important;
+            }
+            
+            /* 브라우저 기본 파란색 제거 */
+            .form-select option:checked {
+                background: #FD4B21 !important;
+                background-color: #FD4B21 !important;
+                -webkit-appearance: none !important;
+                -moz-appearance: none !important;
+            }
+            
+            /* 선택된 옵션의 모든 상태에서 주황색 유지 */
+            select.form-select option:checked,
+            select.form-select option[selected="selected"],
+            select.form-select option[selected],
+            select.form-select option[value]:checked {
+                background: #FD4B21 !important;
+                background-color: #FD4B21 !important;
+                color: #FFFFFF !important;
+            }
+            
+            /* 브라우저 기본 파란색 완전 제거 */
+            select.form-select option::-moz-selection,
+            select.form-select option::selection {
+                background: #FD4B21 !important;
+                background-color: #FD4B21 !important;
+                color: #FFFFFF !important;
+            }
+            
+            /* 모든 option 요소에 주황색 강제 적용 */
+            option:checked,
+            option[selected],
+            option[selected="selected"] {
+                background: #FD4B21 !important;
+                background-color: #FD4B21 !important;
+                color: #FFFFFF !important;
+            }
+            
+            .form-select option:hover {
+                background-color: #F9FAFB !important;
+                color: #111827 !important;
+            }
+            
+            /* 드롭다운 리스트 배경 제거 - 모든 상태 */
+            select.form-select,
+            select.form-select:focus,
+            select.form-select:active,
+            select.form-select:focus-visible,
+            select.form-select:focus-within,
+            select.form-select:hover,
+            select.form-select:visited {
+                background-color: #FFFFFF !important;
+                border: none !important;
+                outline: none !important;
+                box-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                -moz-box-shadow: none !important;
+                -webkit-tap-highlight-color: transparent !important;
+            }
+            
+            select.form-select:focus {
+                background-color: #F9FAFB !important;
+            }
+            
+            /* 드롭다운 리스트 박스 테두리 제거 */
+            select.form-select option,
+            select.form-select optgroup {
+                border: none !important;
+                outline: none !important;
+                -webkit-appearance: none !important;
+                -moz-appearance: none !important;
+            }
+            
+            /* 모든 브라우저에서 드롭다운 테두리 제거 */
+            select.form-select::-webkit-select,
+            select.form-select::-moz-select,
+            select.form-select::select {
+                border: none !important;
+                outline: none !important;
+            }
+            
+            /* 드롭다운이 열렸을 때 나타나는 리스트 박스 테두리 제거 */
+            select.form-select:not([multiple]) {
+                border: none !important;
+            }
+            
+            /* 드롭다운 전용 포커스 스타일 */
+            .form-select:focus,
+            .form-select:active,
+            .form-select:focus-visible {
+                outline: none !important;
+                border: none !important;
+                box-shadow: none !important;
+                -webkit-tap-highlight-color: transparent !important;
+            }
+            
+            /* 드롭다운이 열렸을 때 나타나는 리스트 박스 스타일 */
+            select.form-select {
+                -webkit-appearance: none !important;
+                -moz-appearance: none !important;
+                appearance: none !important;
+            }
+            
+            /* 모든 상태에서 테두리 제거 */
+            select.form-select,
+            select.form-select:focus,
+            select.form-select:active,
+            select.form-select:focus-visible,
+            select.form-select:focus-within {
+                border: 0 !important;
+                border-width: 0 !important;
+                border-style: none !important;
+                border-color: transparent !important;
+                outline: 0 !important;
+                outline-width: 0 !important;
+                outline-style: none !important;
+                outline-color: transparent !important;
+            }
         `;
         document.head.appendChild(style);
+        
+        // ============================================
+        // 📱 Bottom Sheet 스크롤 처리 (성능 최적화)
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const restaurantCard = document.getElementById('restaurantCard');
+            if (!restaurantCard) return;
+            
+            // 카드가 peek 상태일 때 스크롤하면 자동으로 위로 올라가도록
+            let lastScrollTop = 0;
+            let scrollThreshold = 30; // 스크롤 임계값 (px) - 더 낮게 설정
+            let isOpening = false; // 이미 열리는 중인지 체크
+            let scrollTimeout = null;
+            
+            // 스크롤 이벤트 리스너 (requestAnimationFrame으로 최적화)
+            restaurantCard.addEventListener('scroll', function() {
+                if (isOpening) return; // 이미 열리는 중이면 무시
+                
+                // 기존 timeout 취소
+                if (scrollTimeout) {
+                    cancelAnimationFrame(scrollTimeout);
+                }
+                
+                // requestAnimationFrame으로 다음 프레임에 실행
+                scrollTimeout = requestAnimationFrame(function() {
+                    const currentScrollTop = restaurantCard.scrollTop;
+                    
+                    // peek 상태일 때만 처리
+                    if (restaurantCard.classList.contains('peek')) {
+                        // 위로 스크롤하면 (스크롤 위치가 줄어들면) 카드를 완전히 열기
+                        if (currentScrollTop < lastScrollTop && currentScrollTop < scrollThreshold) {
+                            isOpening = true;
+                            // 위로 스크롤 중이고 임계값 이하이면 카드를 완전히 열기
+                            restaurantCard.classList.remove('peek');
+                            restaurantCard.classList.add('show');
+                            restaurantCard.style.transform = 'translateX(-50%) translateY(0)';
+                            
+                            // 애니메이션 완료 후 플래그 리셋
+                            setTimeout(() => {
+                                isOpening = false;
+                            }, 300);
+                        }
+                    }
+                    
+                    lastScrollTop = currentScrollTop;
+                });
+            }, { passive: true });
+            
+            // 마우스 휠 이벤트 (컴퓨터에서 더 빠르게 반응)
+            restaurantCard.addEventListener('wheel', function(e) {
+                if (isOpening || !restaurantCard.classList.contains('peek')) return;
+                
+                // 위로 스크롤하고 스크롤이 맨 위에 있으면 즉시 열기
+                if (e.deltaY < 0 && restaurantCard.scrollTop <= 10) {
+                    isOpening = true;
+                    restaurantCard.classList.remove('peek');
+                    restaurantCard.classList.add('show');
+                    restaurantCard.style.transform = 'translateX(-50%) translateY(0)';
+                    
+                    setTimeout(() => {
+                        isOpening = false;
+                    }, 300);
+                }
+            }, { passive: true });
+            
+            // 터치 스크롤 감지 (모바일)
+            let touchStartY = 0;
+            let touchMoved = false;
+            
+            restaurantCard.addEventListener('touchstart', function(e) {
+                if (this.classList.contains('peek') && !isOpening) {
+                    touchStartY = e.touches[0].clientY;
+                    touchMoved = false;
+                }
+            }, { passive: true });
+            
+            restaurantCard.addEventListener('touchmove', function(e) {
+                if (!restaurantCard.classList.contains('peek') || isOpening || touchMoved) return;
+                
+                const touchY = e.touches[0].clientY;
+                const deltaY = touchStartY - touchY; // 위로 스와이프하면 양수
+                
+                // 위로 스와이프하고 스크롤이 맨 위에 있으면 카드를 완전히 열기
+                if (deltaY > 30 && restaurantCard.scrollTop <= 10) {
+                    touchMoved = true;
+                    isOpening = true;
+                    restaurantCard.classList.remove('peek');
+                    restaurantCard.classList.add('show');
+                    restaurantCard.style.transform = 'translateX(-50%) translateY(0)';
+                    
+                    setTimeout(() => {
+                        isOpening = false;
+                    }, 300);
+                }
+            }, { passive: true });
+        });
     </script>
 </body>
 </html>
